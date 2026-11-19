@@ -36,6 +36,7 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
+  public readonly donationBtcAddress = 'bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc';
   public quickSetupOpen = false;
   public quickSetupDevice: 'standard' | 'nmminer' | 'asic' = 'standard';
   public minersModalOpen = false;

@@ -497,6 +497,31 @@
 
             </div>
         </div>
+
+        <div class="col-12">
+            <div class="card donate-card">
+                <div class="donate-card-content">
+                    <div>
+                        <h4 class="mb-1">
+                            <i class="pi pi-heart-fill text-pink-400 mr-2" aria-hidden="true"></i>{{i18n.t('supportTitle')}}
+                        </h4>
+                        <p class="text-500 text-sm m-0">{{i18n.t('supportSubtitle')}}</p>
+                    </div>
+                    <div class="donate-actions">
+                        <div class="donate-btc-box">
+                            <span class="text-xs text-500 font-semibold">BTC</span>
+                            <a [href]="'bitcoin:' + donationBtcAddress"><code>{{donationBtcAddress}}</code></a>
+                            <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(donationBtcAddress, 'BTC')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                            <small class="text-green-400" *ngIf="copiedLabel === 'BTC'">✓</small>
+                        </div>
+                        <a href="https://donate.goover.dev" target="_blank" rel="noopener" class="setup-trigger-btn donate-link-btn">
+                            <i class="pi pi-external-link" aria-hidden="true"></i>
+                            <span>donate.goover.dev</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
