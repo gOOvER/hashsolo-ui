@@ -49,14 +49,14 @@ describe('AppConfigService', () => {
     expect(service.stratumUrl).toBe(`${window.location.hostname}:3333`);
   });
 
-  it('uses the browser hostname when runtime SECURE_STRATUM_URL is explicitly empty', () => {
+  it('omits secureStratumUrl when runtime SECURE_STRATUM_URL is explicitly empty', () => {
     window.__PUBLIC_POOL_CONFIG__ = {
       SECURE_STRATUM_URL: ''
     };
 
     const service = new AppConfigService();
 
-    expect(service.secureStratumUrl).toBe(`${window.location.hostname}:4333`);
+    expect(service.secureStratumUrl).toBe('');
   });
 
   it('normalizes a runtime API_URL with trailing slashes', () => {

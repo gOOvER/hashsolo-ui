@@ -42,10 +42,10 @@ export class AppConfigService {
 
   public get secureStratumUrl(): string {
     if (this.hasRuntimeValue('SECURE_STRATUM_URL')) {
-      return this.resolveSecureStratumUrl(window.__PUBLIC_POOL_CONFIG__?.SECURE_STRATUM_URL);
+      return this.resolveOptionalUrl(window.__PUBLIC_POOL_CONFIG__?.SECURE_STRATUM_URL);
     }
 
-    return this.resolveSecureStratumUrl(environment.SECURE_STRATUM_URL);
+    return this.resolveOptionalUrl(environment.SECURE_STRATUM_URL);
   }
 
   public get stratumV2Url(): string {
@@ -109,19 +109,6 @@ export class AppConfigService {
     }
 
     return `${window.location.hostname}:3333`;
-  }
-
-  private resolveSecureStratumUrl(value: string | undefined): string {
-    const configured = (value ?? '').trim();
-    if (configured.length > 0) {
-      return configured;
-    }
-
-    if (typeof window === 'undefined') {
-      return 'localhost:4333';
-    }
-
-    return `${window.location.hostname}:4333`;
   }
 
   private resolveOptionalUrl(value: string | undefined): string {

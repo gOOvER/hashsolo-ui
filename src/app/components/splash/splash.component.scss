@@ -274,3 +274,44 @@
     }
 
 }
+
+.worker-input-row {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+}
+
+.worker-input-row label {
+    color: var(--text-color-secondary);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.worker-input {
+    font-size: 0.85rem;
+    max-width: 14rem;
+    padding: 0.3rem 0.55rem;
+}
+
+.empty-state {
+    border: 1px dashed var(--surface-border);
+    border-radius: 6px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.connection-row .p-button,
+.connection-subvalue .p-button {
+    color: var(--text-color);
+    min-width: 2rem;
+}
+
+.login-panel .p-button {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color-text, #0f172a);
+    font-weight: 600;
+    padding: 0.65rem 1rem;
+    white-space: nowrap;
+}

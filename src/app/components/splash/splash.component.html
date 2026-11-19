@@ -30,14 +30,14 @@
                             <div class="connection-row" *ngIf="stratumURL">
                                 <span>Stratum V1</span>
                                 <code>stratum+tcp://{{stratumURL}}</code>
-                                <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                    (click)="copyText('stratum+tcp://' + stratumURL, 'Solo Stratum V1')" title="Copy Solo Stratum V1 URL"></button>
+                                <button pButton type="button" class="p-button-text p-button-sm"
+                                    (click)="copyText('stratum+tcp://' + stratumURL, 'Solo Stratum V1')" title="Copy Solo Stratum V1 URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                             </div>
                             <div class="connection-row" *ngIf="secureStratumURL">
                                 <span>Stratum V1 + TLS</span>
                                 <code>stratum+tls://{{secureStratumURL}}</code>
-                                <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                    (click)="copyText('stratum+tls://' + secureStratumURL, 'Solo Stratum V1 + TLS')" title="Copy Solo Stratum V1 + TLS URL"></button>
+                                <button pButton type="button" class="p-button-text p-button-sm"
+                                    (click)="copyText('stratum+tls://' + secureStratumURL, 'Solo Stratum V1 + TLS')" title="Copy Solo Stratum V1 + TLS URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                             </div>
                             <div class="connection-row" *ngIf="stratumV2URL">
                                 <span>Stratum V2</span>
@@ -47,16 +47,16 @@
                                         <div class="connection-subvalue" *ngIf="sv2?.poolAuthorityPublicKey">
                                             <span>Key</span>
                                             <code class="sv2-authority-key">{{sv2.poolAuthorityPublicKey}}</code>
-                                            <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                                (click)="copyText(sv2.poolAuthorityPublicKey, 'Stratum V2 key')" title="Copy Stratum V2 key"></button>
+                                            <button pButton type="button" class="p-button-text p-button-sm"
+                                                (click)="copyText(sv2.poolAuthorityPublicKey, 'Stratum V2 key')" title="Copy Stratum V2 key"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                         </div>
                                         <small class="text-orange-300" *ngIf="sv2.authorityKeyConfigured === false">
                                             Stratum V2 is using a temporary authority key.
                                         </small>
                                     </ng-container>
                                 </div>
-                                <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                    (click)="copyText('stratum+tcp://' + stratumV2URL, 'Solo Stratum V2')" title="Copy Solo Stratum V2 URL"></button>
+                                <button pButton type="button" class="p-button-text p-button-sm"
+                                    (click)="copyText('stratum+tcp://' + stratumV2URL, 'Solo Stratum V2')" title="Copy Solo Stratum V2 URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                             </div>
                             <ng-container *ngIf="pplnsEnabled">
                                 <div class="connection-mode-header">
@@ -66,14 +66,14 @@
                                 <div class="connection-row" *ngIf="pplnsStratumURL">
                                     <span>Stratum V1</span>
                                     <code>stratum+tcp://{{pplnsStratumURL}}</code>
-                                    <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                        (click)="copyText('stratum+tcp://' + pplnsStratumURL, 'PPLNS Stratum V1')" title="Copy PPLNS Stratum V1 URL"></button>
+                                    <button pButton type="button" class="p-button-text p-button-sm"
+                                        (click)="copyText('stratum+tcp://' + pplnsStratumURL, 'PPLNS Stratum V1')" title="Copy PPLNS Stratum V1 URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="connection-row" *ngIf="pplnsSecureStratumURL">
                                     <span>Stratum V1 + TLS</span>
                                     <code>stratum+tls://{{pplnsSecureStratumURL}}</code>
-                                    <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                        (click)="copyText('stratum+tls://' + pplnsSecureStratumURL, 'PPLNS Stratum V1 + TLS')" title="Copy PPLNS Stratum V1 + TLS URL"></button>
+                                    <button pButton type="button" class="p-button-text p-button-sm"
+                                        (click)="copyText('stratum+tls://' + pplnsSecureStratumURL, 'PPLNS Stratum V1 + TLS')" title="Copy PPLNS Stratum V1 + TLS URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="connection-row" *ngIf="pplnsStratumV2URL">
                                     <span>Stratum V2</span>
@@ -83,30 +83,37 @@
                                             <div class="connection-subvalue" *ngIf="sv2?.poolAuthorityPublicKey">
                                                 <span>Key</span>
                                                 <code class="sv2-authority-key">{{sv2.poolAuthorityPublicKey}}</code>
-                                                <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                                    (click)="copyText(sv2.poolAuthorityPublicKey, 'Stratum V2 key')" title="Copy Stratum V2 key"></button>
+                                                <button pButton type="button" class="p-button-text p-button-sm"
+                                                    (click)="copyText(sv2.poolAuthorityPublicKey, 'Stratum V2 key')" title="Copy Stratum V2 key"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                             </div>
                                             <small class="text-orange-300" *ngIf="sv2.authorityKeyConfigured === false">
                                                 Stratum V2 is using a temporary authority key.
                                             </small>
                                         </ng-container>
                                     </div>
-                                    <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                        (click)="copyText('stratum+tcp://' + pplnsStratumV2URL, 'PPLNS Stratum V2')" title="Copy PPLNS Stratum V2 URL"></button>
+                                    <button pButton type="button" class="p-button-text p-button-sm"
+                                        (click)="copyText('stratum+tcp://' + pplnsStratumV2URL, 'PPLNS Stratum V2')" title="Copy PPLNS Stratum V2 URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="connection-row" *ngIf="pplnsDatumURL">
                                     <span>DATUM</span>
                                     <code>datum://{{pplnsDatumURL}}</code>
-                                    <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                        (click)="copyText('datum://' + pplnsDatumURL, 'PPLNS DATUM')" title="Copy PPLNS DATUM URL"></button>
+                                    <button pButton type="button" class="p-button-text p-button-sm"
+                                        (click)="copyText('datum://' + pplnsDatumURL, 'PPLNS DATUM')" title="Copy PPLNS DATUM URL"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                 </div>
                             </ng-container>
 
-                            <div class="connection-row">
+                            <div class="connection-row connection-row-worker">
                                 <span>Miner Username</span>
-                                <code>&lt;your BTC address&gt;.&lt;worker name&gt;</code>
-                                <button pButton type="button" icon="pi pi-copy" class="p-button-text p-button-sm"
-                                    (click)="copyText('<your BTC address>.<worker name>', 'Miner username')" title="Copy miner username format"></button>
+                                <div class="connection-value-stack">
+                                    <code>{{minerUsernamePreview}}</code>
+                                    <div class="worker-input-row">
+                                        <label for="workerName">Worker</label>
+                                        <input id="workerName" [formControl]="workerName" placeholder="e.g. bitaxe01" pInputText type="text" class="worker-input">
+                                    </div>
+                                    <small class="text-500">Format: &lt;BTC address&gt;.&lt;worker name&gt; (e.g. bitaxe01, nerdaxe, rig1)</small>
+                                </div>
+                                <button pButton type="button" class="p-button-text p-button-sm"
+                                    (click)="copyText(minerUsernamePreview, 'Miner username')" title="Copy miner username"><i class="pi pi-copy" aria-hidden="true"></i></button>
                             </div>
                         </div>
                         <div class="lookup-panel">
@@ -114,8 +121,8 @@
                             <div class="login-panel">
                                 <input [formControl]="address" placeholder="Address (bc1...)" pInputText id="address"
                                     type="text" class="p-inputtext p-component p-element">
-                                <button [disabled]="address.invalid" pButton label="My Miners"
-                                    [routerLink]="['app',address.value]"></button>
+                                <button [disabled]="address.invalid" pButton
+                                    [routerLink]="['app',address.value]">My Miners</button>
                             </div>
                         </div>
                     </div>
@@ -267,7 +274,10 @@
 
                 <ng-container *ngIf="chartData$ | async as chartData; else loadingChart">
 
-                    <p-chart [responsive]="true" type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+                    <p-chart *ngIf="chartData.labels?.length; else emptyChart" [responsive]="true" type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+                    <ng-template #emptyChart>
+                        <div class="empty-state text-500">No hashrate history yet. Connect a miner or wait for Bitcoin node sync to complete.</div>
+                    </ng-template>
 
                 </ng-container>
                 <ng-template #loadingChart>
@@ -280,8 +290,8 @@
         <div class="col-12">
             <div class="card">
                 <h4 style="text-align: center;">Connected Miners</h4>
-                <ng-container *ngIf="userAgents$ | async as userAgents">
-                    <p-table [value]="userAgents" styleClass="compact-table">
+                <ng-container *ngIf="userAgents$ | async as userAgents; else loadingTable">
+                    <p-table *ngIf="userAgents.length > 0; else emptyMiners" [value]="userAgents" styleClass="compact-table">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Device</th>
@@ -304,6 +314,9 @@
                     <div class="text-right mt-2">
                         <i class="pi pi-star-fill"></i> = Open Source Software & Hardware
                     </div>
+                    <ng-template #emptyMiners>
+                        <div class="empty-state text-500">No miners connected yet. Point your miner to <code>stratum+tcp://{{stratumURL}}</code>.</div>
+                    </ng-template>
                 </ng-container>
                 <ng-template #loadingTable>
                     <p-table [value]="[{},{},{}]" styleClass="compact-table">

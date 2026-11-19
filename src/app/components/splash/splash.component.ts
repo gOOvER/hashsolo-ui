@@ -18,6 +18,7 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 export class SplashComponent {
 
   public address: FormControl;
+  public workerName = new FormControl('worker1');
 
   public chartData$: Observable<any>;
   public blockData$: Observable<any>;
@@ -31,6 +32,14 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
+
+  public get minerUsernamePreview(): string {
+    const addr = this.address?.valid && this.address.value?.trim()
+      ? this.address.value.trim()
+      : 'bc1q...youraddress';
+    const worker = (this.workerName.value ?? '').trim() || 'worker1';
+    return `${addr}.${worker}`;
+  }
 
   public stratumURL = '';
   public secureStratumURL = '';
@@ -55,6 +64,7 @@ export class SplashComponent {
     const soloColor = documentStyle.getPropertyValue('--yellow-600') || '#d97706';
 
     this.info$ = this.appService.getInfo().pipe(
+      catchError(() => of({})),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 
@@ -67,11 +77,11 @@ export class SplashComponent {
     this.pplnsDatumURL = this.appConfig.pplnsDatumUrl;
     this.pplnsEnabled = this.hasPplnsConnections();
 
-    this.blockData$ = this.info$.pipe(map(info => info.blockData));
-    this.userAgents$ = this.info$.pipe(map(info => info.userAgents));
-    this.highScores$ = this.info$.pipe(map(info => info.highScores));
-    this.sv2$ = this.info$.pipe(map(info => info.sv2));
-    this.uptime$ = this.info$.pipe(map(info => info.uptime))
+    this.blockData$ = this.info$.pipe(map(info => info?.blockData ?? []));
+    this.userAgents$ = this.info$.pipe(map(info => info?.userAgents ?? []));
+    this.highScores$ = this.info$.pipe(map(info => info?.highScores ?? []));
+    this.sv2$ = this.info$.pipe(map(info => info?.sv2));
+    this.uptime$ = this.info$.pipe(map(info => info?.uptime ?? null));
     this.accounting$ = this.appService.getAccounting().pipe(
       catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
@@ -88,7 +98,7 @@ export class SplashComponent {
     );
 
     this.chartData$ = combineLatest([
-      this.appService.getInfoChartByPayoutMode(this.pplnsEnabled ? 'all' : 'solo'),
+      this.appService.getInfoChartByPayoutMode(this.pplnsEnabled ? 'all' : 'solo').pipe(catchError(() => of([]))),
       this.networkInfo$
     ]).pipe(
       map(([chartData, networkInfo]) => {
