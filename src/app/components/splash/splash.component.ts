@@ -36,6 +36,7 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
+  public quickSetupOpen = false;
   public quickSetupDevice: 'standard' | 'nmminer' | 'asic' = 'standard';
 
   public get stratumHost(): string {

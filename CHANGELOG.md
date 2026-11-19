@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
 
 ### Changed
+- Moved the device-specific miner Quick Setup (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`) out of the `Solo Mining` hero card into a compact modal popup triggered from the header button (`Geräte-Setup` / `Device Setup`) in `SplashComponent`.
 - Replaced `DE`/`EN` text toggle with inline SVG country flags, expanded German translations across `SplashComponent` & `DashboardComponent`, and replaced `bitaxe01` examples with neutral `worker1` / `Standard / ESP-Miner` labels.
 - Enabled Brotli/Gzip precompression, `zstd`/`gzip` encoding, and immutable caching for hashed assets in `docker/Caddyfile.tpl` (~5x smaller transfer size).
 - Added 4s timeout and 10s polling interval on `getNodeStatus()` so slow RPC responses during IBD cannot stall page loads.
@@ -27,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added `standalone: false` to NgModule-declared components and pipes for Angular 22 compatibility.
 
 ### Fixed
+- Fixed empty `<p-table>` headers and rows across `SplashComponent` (`Connected Miners`, `High Scores`, `Found Blocks`) and `DashboardComponent` (`Workers`) by migrating PrimeNG 22 `<ng-template>` bindings from `pTemplate="header"`/`pTemplate="body"`/`pTemplate="groupheader"`/`pTemplate="rowexpansion"` to `#header`/`#body`/`#groupheader`/`#rowexpansion`.
 - Fixed `SplashComponent` template crash when `/api/info/accounting` returns `404` (`null`) by providing default zeroed accounting metrics (`Solo 10m`, `Solo 1h`, `Best Difficulty`, `Solo Work`) so the `Solo Hashrate` chart and empty state render cleanly.
 - Updated hero fee display in `SplashComponent` to read `fee` dynamically from `/api/info` (`NO FEES` vs `1.5% FEE (>= 50 TH/s, 0% under 50 TH/s)`).
 - Fixed `pButton` label (`My Miners`) and copy icon (`pi-copy`) rendering for PrimeNG 22, plus button contrast styling in `SplashComponent`.

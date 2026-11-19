@@ -33,6 +33,10 @@
                                 <span>{{i18n.t('connection')}}</span>
                                 <div class="header-actions">
                                     <small *ngIf="copiedLabel">{{copiedLabel}} copied</small>
+                                    <button type="button" class="setup-trigger-btn" (click)="quickSetupOpen = true">
+                                        <i class="pi pi-sliders-h" aria-hidden="true"></i>
+                                        <span>{{i18n.t('quickSetup')}}</span>
+                                    </button>
                                     <div class="lang-toggle" role="group" aria-label="Language">
                                         <button type="button" [class.active]="i18n.lang === 'de'" (click)="i18n.setLang('de')" title="Deutsch">
                                             <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="4" y="0" fill="#111827"/><rect width="18" height="4" y="4" fill="#dc2626"/><rect width="18" height="4" y="8" fill="#facc15"/></svg>
@@ -130,68 +134,6 @@
                                 </div>
                                 <button pButton type="button" class="p-button-text p-button-sm"
                                     (click)="copyText(minerUsernamePreview, 'Miner username')" title="Copy miner username"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="quick-setup-box">
-                                <div class="quick-setup-header">
-                                    <small>{{i18n.t('quickSetup')}}</small>
-                                    <div class="quick-setup-tabs">
-                                        <button type="button" [class.active]="quickSetupDevice === 'standard'" (click)="quickSetupDevice = 'standard'">Standard / ESP-Miner</button>
-                                        <button type="button" [class.active]="quickSetupDevice === 'nmminer'" (click)="quickSetupDevice = 'nmminer'">NMMiner</button>
-                                        <button type="button" [class.active]="quickSetupDevice === 'asic'" (click)="quickSetupDevice = 'asic'">Antminer / ASIC</button>
-                                    </div>
-                                </div>
-                                <ng-container *ngIf="quickSetupDevice === 'standard'">
-                                    <div class="connection-row">
-                                        <span>Stratum Host</span>
-                                        <code>{{stratumHost}}</code>
-                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumHost, 'Stratum Host')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>Port</span>
-                                        <code>{{stratumPort}}</code>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>Stratum User</span>
-                                        <code>{{minerUsernamePreview}}</code>
-                                        <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Stratum User')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>{{i18n.t('password')}}</span>
-                                        <code>x</code>
-                                    </div>
-                                </ng-container>
-                                <ng-container *ngIf="quickSetupDevice === 'nmminer'">
-                                    <div class="connection-row">
-                                        <span>Pool URL</span>
-                                        <code>stratum+tcp://{{stratumURL}}</code>
-                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>Wallet Address</span>
-                                        <code>{{minerUsernamePreview}}</code>
-                                        <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Wallet Address')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>Pool Password</span>
-                                        <code>x</code>
-                                    </div>
-                                </ng-container>
-                                <ng-container *ngIf="quickSetupDevice === 'asic'">
-                                    <div class="connection-row">
-                                        <span>Pool URL</span>
-                                        <code>stratum+tcp://{{stratumURL}}</code>
-                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>{{i18n.t('worker')}}</span>
-                                        <code>{{minerUsernamePreview}}</code>
-                                        <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Worker')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>{{i18n.t('password')}}</span>
-                                        <code>x</code>
-                                    </div>
-                                </ng-container>
                             </div>
                         </div>
                         <div class="lookup-panel">
@@ -414,7 +356,7 @@
                 <ng-container *ngIf="userAgents$ | async as userAgents; else loadingTable">
                     <ng-container *ngIf="userAgents.length > 0; else emptyMiners">
                         <p-table [value]="userAgents" styleClass="compact-table">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th>{{i18n.t('device')}}</th>
                                 <th class="numeric-cell">{{i18n.t('working')}}</th>
@@ -424,7 +366,7 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-userAgent>
+                        <ng-template #body let-userAgent>
                             <tr>
                                 <td data-label="Device"><app-user-agent-link [userAgent]="userAgent.userAgent"></app-user-agent-link></td>
                                 <td data-label="Working" class="numeric-cell">{{ userAgent.count }}</td>
@@ -443,7 +385,7 @@
                 </ng-container>
                 <ng-template #loadingTable>
                     <p-table [value]="[{},{},{}]" styleClass="compact-table">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th>Device</th>
                                 <th class="numeric-cell">Working</th>
@@ -453,7 +395,7 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-row>
+                        <ng-template #body let-row>
                             <tr>
                                 <td data-label="Device"><p-skeleton></p-skeleton></td>
                                 <td data-label="Working"><p-skeleton></p-skeleton></td>
@@ -471,7 +413,7 @@
                 <h4 style="text-align: center;">{{i18n.t('highScores')}}</h4>
                 <ng-container *ngIf="highScores.length > 0; else emptyHighScores">
                     <p-table [value]="highScores" styleClass="compact-table">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th class="numeric-cell">{{i18n.t('rank')}}</th>
                                 <th class="numeric-cell">{{i18n.t('bestDiffCol')}}</th>
@@ -479,7 +421,7 @@
                                 <th class="numeric-cell">{{i18n.t('when')}}</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-highScore let-i="rowIndex">
+                        <ng-template #body let-highScore let-i="rowIndex">
                             <tr>
                                 <td data-label="Rank" class="numeric-cell">#{{i+1}}</td>
                                 <td data-label="Best Difficulty" class="numeric-cell">{{ highScore.bestDifficulty | numberSuffix }}</td>
@@ -499,7 +441,7 @@
                 </ng-template>
                 <ng-template #loadingTable>
                     <p-table [value]="[{},{},{}]" styleClass="compact-table">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th>Device</th>
                                 <th class="numeric-cell">Working</th>
@@ -509,7 +451,7 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-row>
+                        <ng-template #body let-row>
                             <tr>
                                 <td data-label="Device"><p-skeleton></p-skeleton></td>
                                 <td data-label="Working"><p-skeleton></p-skeleton></td>
@@ -529,14 +471,14 @@
             <div class="card">
                 <h4 style="text-align: center;">{{i18n.t('foundBlocks')}}</h4>
                 <p-table [value]="blockData" styleClass="compact-table">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th class="numeric-cell">{{i18n.t('height')}}</th>
                             <th>{{i18n.t('address')}}</th>
                             <th>{{i18n.t('worker')}}</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-block>
+                    <ng-template #body let-block>
                         <tr>
                             <td data-label="Height" class="numeric-cell">
                                 <a [href]="'https://mempool.space/block/' + block.height" target="_blank" rel="noopener">{{ block.height }}</a>
@@ -548,6 +490,82 @@
                 </p-table>
 
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="setup-modal-backdrop" *ngIf="quickSetupOpen" (click)="quickSetupOpen = false">
+    <div class="card setup-modal" (click)="$event.stopPropagation()">
+        <div class="setup-modal-header">
+            <div class="setup-modal-title">
+                <i class="pi pi-sliders-h" aria-hidden="true"></i>
+                <strong>{{i18n.t('quickSetup')}}</strong>
+                <small class="text-500" *ngIf="copiedLabel">{{copiedLabel}} copied</small>
+            </div>
+            <button type="button" class="setup-modal-close" (click)="quickSetupOpen = false" aria-label="Close">
+                <i class="pi pi-times" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="quick-setup-tabs mb-3">
+            <button type="button" [class.active]="quickSetupDevice === 'standard'" (click)="quickSetupDevice = 'standard'">Standard / ESP-Miner</button>
+            <button type="button" [class.active]="quickSetupDevice === 'nmminer'" (click)="quickSetupDevice = 'nmminer'">NMMiner</button>
+            <button type="button" [class.active]="quickSetupDevice === 'asic'" (click)="quickSetupDevice = 'asic'">Antminer / ASIC</button>
+        </div>
+
+        <div class="connection-panel">
+            <ng-container *ngIf="quickSetupDevice === 'standard'">
+                <div class="connection-row">
+                    <span>Stratum Host</span>
+                    <code>{{stratumHost}}</code>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumHost, 'Stratum Host')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>Port</span>
+                    <code>{{stratumPort}}</code>
+                </div>
+                <div class="connection-row">
+                    <span>Stratum User</span>
+                    <code>{{minerUsernamePreview}}</code>
+                    <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Stratum User')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>{{i18n.t('password')}}</span>
+                    <code>x</code>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="quickSetupDevice === 'nmminer'">
+                <div class="connection-row">
+                    <span>Pool URL</span>
+                    <code>stratum+tcp://{{stratumURL}}</code>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>Wallet Address</span>
+                    <code>{{minerUsernamePreview}}</code>
+                    <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Wallet Address')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>Pool Password</span>
+                    <code>x</code>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="quickSetupDevice === 'asic'">
+                <div class="connection-row">
+                    <span>Pool URL</span>
+                    <code>stratum+tcp://{{stratumURL}}</code>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>{{i18n.t('worker')}}</span>
+                    <code>{{minerUsernamePreview}}</code>
+                    <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Worker')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row">
+                    <span>{{i18n.t('password')}}</span>
+                    <code>x</code>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>

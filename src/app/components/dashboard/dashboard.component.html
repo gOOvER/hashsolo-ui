@@ -88,7 +88,7 @@
                 <p-table #dataTable [rowHover]="true" groupRowsBy="name" dataKey="name" rowGroupMode="subheader"
                     [value]="clientInfo.workers" [expandedRowKeys]="expandedRows$ | async"
                     styleClass="compact-table">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Mode</th>
@@ -100,7 +100,7 @@
                         </tr>
                     </ng-template>
 
-                    <ng-template pTemplate="groupheader" let-worker let-rowIndex="rowIndex" let-expanded="expanded">
+                    <ng-template #groupheader let-worker let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr [routerLink]="[worker.name]">
                             <td data-label="Name">
                                 <button (click)="$event.stopImmediatePropagation()" type="button" pButton pRipple
@@ -123,7 +123,7 @@
                         </tr>
                     </ng-template>
 
-                    <ng-template pTemplate="rowexpansion" let-worker>
+                    <ng-template #rowexpansion let-worker>
                         <tr [routerLink]="[worker.name, worker.sessionId]">
                             <td></td>
                             <td data-label="Mode"><span [class]="getPayoutModeClass(worker.payoutMode)">{{formatPayoutMode(worker.payoutMode)}}</span></td>
