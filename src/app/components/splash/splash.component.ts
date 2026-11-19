@@ -25,6 +25,7 @@ export class SplashComponent {
   public userAgents$: Observable<any>;
   public highScores$: Observable<any>;
   public uptime$: Observable<string>;
+  public fee$: Observable<number | null>;
   public sv2$: Observable<any>;
   public accounting$: Observable<any>;
   public accountingByPayoutMode$: Observable<{ pplns: any; solo: any; }>;
@@ -82,13 +83,24 @@ export class SplashComponent {
     this.highScores$ = this.info$.pipe(map(info => info?.highScores ?? []));
     this.sv2$ = this.info$.pipe(map(info => info?.sv2));
     this.uptime$ = this.info$.pipe(map(info => info?.uptime ?? null));
+    this.fee$ = this.info$.pipe(map(info => typeof info?.fee === 'number' ? info.fee : null));
     this.accounting$ = this.appService.getAccounting().pipe(
       catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
+    const emptyAccounting = {
+      bestSubmissionDifficulty: 0,
+      bestSubmissionDifficultyAt: null,
+      totalCreditedDifficulty: 0,
+      creditedDifficultyLastHour: 0,
+      creditedDifficultyLast10Minutes: 0,
+      hashRateLast10Minutes: 0,
+      hashRateLastHour: 0,
+      networkDifficultyPercent: 0
+    };
     this.accountingByPayoutMode$ = forkJoin({
-      pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns').pipe(catchError(() => of(null))) : of(null),
-      solo: this.appService.getAccounting('solo').pipe(catchError(() => of(null)))
+      pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting))) : of(emptyAccounting),
+      solo: this.appService.getAccounting('solo').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting)))
     }).pipe(
       shareReplay({ refCount: true, bufferSize: 1 })
     );

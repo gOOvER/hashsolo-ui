@@ -23,6 +23,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added `standalone: false` to NgModule-declared components and pipes for Angular 22 compatibility.
 
 ### Fixed
+- Fixed `SplashComponent` template crash when `/api/info/accounting` returns `404` (`null`) by providing default zeroed accounting metrics (`Solo 10m`, `Solo 1h`, `Best Difficulty`, `Solo Work`) so the `Solo Hashrate` chart and empty state render cleanly.
+- Updated hero fee display in `SplashComponent` to read `fee` dynamically from `/api/info` (`NO FEES` vs `1.5% FEE (>= 50 TH/s, 0% under 50 TH/s)`).
 - Fixed `pButton` label (`My Miners`) and copy icon (`pi-copy`) rendering for PrimeNG 22, plus button contrast styling in `SplashComponent`.
 - Fixed `AppService` and `ClientService` to fall back to `/api/info/chart` and `/api/client/:address/chart` when `/payout-modes` or `/accounting` endpoints return `404` on Solo-only `public-pool` backends.
 - Fixed `DashboardComponent` to reactively subscribe to `route.paramMap` instead of `route.snapshot.params` so switching addresses updates the dashboard without a full reload.
