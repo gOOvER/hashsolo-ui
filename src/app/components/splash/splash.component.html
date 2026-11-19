@@ -13,15 +13,15 @@
                                 <div class="hero-footer">
                                     <div class="hero-footer-row">
                                         <ng-container *ngIf="fee$ | async as fee; else zeroOrLoadingFee">
-                                            <span class="fee-pill"><b>{{fee}}% FEE</b></span>
+                                            <span class="fee-pill fee-pill-free"><b>{{i18n.t('feeUnder50')}}</b></span>
                                         </ng-container>
                                         <ng-template #zeroOrLoadingFee>
-                                            <span *ngIf="(fee$ | async) === 0"><b>{{i18n.t('noFees')}}</b></span>
+                                            <span class="fee-pill fee-pill-free" *ngIf="(fee$ | async) === 0"><b>{{i18n.t('noFees')}}</b></span>
                                         </ng-template>
                                         <span>{{i18n.t('noSecondBest')}}</span>
                                     </div>
                                     <small class="text-500" *ngIf="(fee$ | async) as fee">
-                                        {{i18n.t('feeUnder50')}} &middot; {{fee}}% &ge; 50 TH/s
+                                        {{i18n.t('feeAbove50')}} {{fee}}% Dev-Fee
                                     </small>
                                 </div>
                             </div>

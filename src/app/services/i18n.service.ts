@@ -7,8 +7,9 @@ const STORAGE_KEY = 'hashsolo_lang';
 const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
   de: {
     heroTagline: 'Open-Source Bitcoin Solo-Mining-Pool',
-    noFees: 'KEINE GEBÜHREN',
-    feeUnder50: '0% unter 50 TH/s',
+    noFees: '0% FEE',
+    feeUnder50: '0% FEE < 50 TH/s',
+    feeAbove50: 'Ab 50 TH/s:',
     noSecondBest: 'Ohne Kompromisse.',
     connection: 'Verbindung',
     soloBadge: 'Solo',
@@ -71,8 +72,9 @@ const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
   },
   en: {
     heroTagline: 'Fully Open Source Bitcoin Solo Mining Pool',
-    noFees: 'NO FEES',
-    feeUnder50: '0% under 50 TH/s',
+    noFees: '0% FEE',
+    feeUnder50: '0% FEE < 50 TH/s',
+    feeAbove50: '≥ 50 TH/s:',
     noSecondBest: 'No second best.',
     connection: 'Connection',
     soloBadge: 'Solo',
