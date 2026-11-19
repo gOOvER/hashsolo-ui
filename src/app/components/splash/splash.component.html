@@ -163,20 +163,16 @@
                                 <ng-container *ngIf="quickSetupDevice === 'nmminer'">
                                     <div class="connection-row">
                                         <span>Pool URL</span>
-                                        <code>{{stratumHost}}</code>
-                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumHost, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                        <code>stratum+tcp://{{stratumURL}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                     </div>
                                     <div class="connection-row">
-                                        <span>Pool Port</span>
-                                        <code>{{stratumPort}}</code>
-                                    </div>
-                                    <div class="connection-row">
-                                        <span>BTC Wallet</span>
+                                        <span>Wallet Address</span>
                                         <code>{{minerUsernamePreview}}</code>
-                                        <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'BTC Wallet')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                        <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Wallet Address')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
                                     </div>
                                     <div class="connection-row">
-                                        <span>{{i18n.t('password')}}</span>
+                                        <span>Pool Password</span>
                                         <code>x</code>
                                     </div>
                                 </ng-container>
