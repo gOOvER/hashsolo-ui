@@ -275,25 +275,6 @@
 
 }
 
-.worker-input-row {
-    align-items: center;
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.35rem;
-}
-
-.worker-input-row label {
-    color: var(--text-color-secondary);
-    font-size: 0.8rem;
-    white-space: nowrap;
-}
-
-.worker-input {
-    font-size: 0.85rem;
-    max-width: 14rem;
-    padding: 0.3rem 0.55rem;
-}
-
 .empty-state {
     border: 1px dashed var(--surface-border);
     border-radius: 6px;

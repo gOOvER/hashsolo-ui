@@ -18,7 +18,6 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 export class SplashComponent {
 
   public address: FormControl;
-  public workerName = new FormControl('worker1');
 
   public chartData$: Observable<any>;
   public blockData$: Observable<any>;
@@ -37,8 +36,7 @@ export class SplashComponent {
     const addr = this.address?.valid && this.address.value?.trim()
       ? this.address.value.trim()
       : 'bc1q...youraddress';
-    const worker = (this.workerName.value ?? '').trim() || 'worker1';
-    return `${addr}.${worker}`;
+    return `${addr}.bitaxe01`;
   }
 
   public stratumURL = '';
