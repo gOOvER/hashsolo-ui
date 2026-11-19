@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🌐 Live Pool (hashsolo.goover.dev)
+    url: https://hashsolo.goover.dev
+    about: Test the HashSolo web dashboard live.
+  - name: ⚙️ Backend / Stratum Issues (gOOvER/hashsolo)
+    url: https://github.com/gOOvER/hashsolo/issues
+    about: Report Stratum, Bitcoin RPC/ZMQ, API, or Discord/Telegram/ntfy issues here.
+  - name: 🐳 Deployment & Docker Stack (gOOvER/hashsolo-dokploy)
+    url: https://github.com/gOOvER/hashsolo-dokploy/issues
+    about: Issues with the Docker Compose / Dokploy stack configuration.

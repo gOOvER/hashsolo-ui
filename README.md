@@ -68,6 +68,16 @@ npm test
 
 ---
 
+## 🤝 Contribute & Pull Requests Welcome!
+
+Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), we love transparent, self-hostable solo mining — but want a modern, actively maintained dashboard without stale Angular/npm security vulnerabilities.
+
+**Every contribution helps!** Whether it's a UI bug fix, translation improvement, chart/UX idea, or dependency/security hardening:
+- 🐛 Open an issue using our [Issue Templates](https://github.com/gOOvER/hashsolo-ui/issues/new/choose).
+- 🔧 Open a [Pull Request](https://github.com/gOOvER/hashsolo-ui/pulls) — PRs are always welcome and appreciated!
+
+---
+
 ## 💝 Support
 
 If you find **HashSolo UI** useful:

@@ -1,0 +1,23 @@
+name: ✨ UI Feature Request
+description: Suggest a dashboard enhancement, UX improvement, or new chart/metric
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Feature Idea & Benefit
+      description: What would you like to see in HashSolo UI and how does it help solo miners?
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Design / UX Notes
+      description: Describe layout, mobile behavior, or required backend API fields.
+  - type: checkboxes
+    id: pr_willing
+    attributes:
+      label: Contribution
+      options:
+        - label: I'm willing to open a Pull Request for this

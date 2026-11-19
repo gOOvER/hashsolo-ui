@@ -1,0 +1,40 @@
+name: 🐛 UI Bug Report
+description: Report a layout, rendering, translation, or API integration bug in HashSolo UI
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve **HashSolo UI**! Screenshots and browser console errors make fixing UI issues much faster.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected Area
+      options:
+        - Home / Splash Page
+        - Address / Worker Dashboard
+        - Device Setup / All Miners Modal
+        - Bitcoin Node Status Card
+        - Charts / Tables (PrimeNG)
+        - Translations (DE / EN)
+        - Caddy / Docker Serving
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the visual or functional bug and what you expected.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser & Device
+      placeholder: e.g. Chrome 131 on Windows 11, Safari on iOS 18
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser Console / Network Errors (if any)
+      render: shell
