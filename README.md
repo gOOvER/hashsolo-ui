@@ -12,6 +12,7 @@
   [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
   [![Support](https://img.shields.io/badge/Support-donate.goover.dev-ff69b4?logo=ko-fi&logoColor=white)](https://donate.goover.dev)
   [![Live Pool](https://img.shields.io/badge/Live%20Pool-hashsolo.goover.dev-f7931a?logo=bitcoin&logoColor=white)](https://hashsolo.goover.dev)
+  [![Wiki](https://img.shields.io/badge/Docs-GitHub%20Wiki-2563eb?logo=gitbook&logoColor=white)](https://github.com/gOOvER/hashsolo/wiki)
 
 </div>
 
