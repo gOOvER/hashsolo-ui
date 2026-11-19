@@ -18,7 +18,9 @@ jobs:
       - 
         name: Prepare outputs
         id: prep
-        run: echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+        run: |
+          echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+          echo "owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
       - 
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0
@@ -49,11 +51,11 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/hashsolo-ui:latest
-            ghcr.io/${{ github.repository_owner }}/hashsolo-ui:${{ steps.get_short_sha.outputs.sha_short }}
+            ghcr.io/${{ steps.prep.outputs.owner }}/hashsolo-ui:latest
+            ghcr.io/${{ steps.prep.outputs.owner }}/hashsolo-ui:${{ steps.get_short_sha.outputs.sha_short }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/hashsolo-ui:latest
+          cache-from: type=registry,ref=ghcr.io/${{ steps.prep.outputs.owner }}/hashsolo-ui:latest
           cache-to: type=inline
