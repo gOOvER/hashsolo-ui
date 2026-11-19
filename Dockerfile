@@ -16,8 +16,8 @@ WORKDIR /build
 
 COPY . .
 
-# Build Public Pool UI using NPM
-RUN npm i && npm run build
+# Build HashSolo UI using NPM
+RUN npm ci --legacy-peer-deps && npm run build
 
 ############################
 # Docker final environment #
