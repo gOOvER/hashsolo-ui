@@ -43,7 +43,9 @@ export class SplashComponent {
 
   public openMinersModal(): void {
     this.minersModalOpen = true;
-    this.connectedMiners$ = this.appService.getConnectedMiners();
+    this.connectedMiners$ = timer(0, 15000).pipe(
+      switchMap(() => this.appService.getConnectedMiners())
+    );
   }
 
   public get stratumHost(): string {
@@ -70,6 +72,13 @@ export class SplashComponent {
       ? this.address.value.trim()
       : fallbackAddr;
     return `${addr}.${this.tabWorkerName}`;
+  }
+
+  public get nmminerAddressPreview(): string {
+    const fallbackAddr = this.i18n.lang === 'de' ? 'bc1q...deineadresse' : 'bc1q...youraddress';
+    return this.address?.valid && this.address.value?.trim()
+      ? this.address.value.trim()
+      : fallbackAddr;
   }
 
   public stratumURL = '';
@@ -99,8 +108,9 @@ export class SplashComponent {
     const primaryColor = documentStyle.getPropertyValue('--primary-color');
     const soloColor = documentStyle.getPropertyValue('--yellow-600') || '#d97706';
 
-    this.info$ = this.appService.getInfo().pipe(
-      catchError(() => of({})),
+    this.info$ = timer(0, 15000).pipe(
+      switchMap(() => this.appService.getInfo().pipe(catchError(() => of({})))),
+      takeUntilDestroyed(),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 

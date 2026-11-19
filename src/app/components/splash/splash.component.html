@@ -548,13 +548,14 @@
                 </div>
                 <div class="connection-row">
                     <span>Wallet Address</span>
-                    <code>{{minerUsernamePreview}}</code>
-                    <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Wallet Address')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                    <code>{{nmminerAddressPreview}}</code>
+                    <button *ngIf="address.valid" pButton type="button" class="p-button-text p-button-sm" (click)="copyText(nmminerAddressPreview, 'Wallet Address')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
                 </div>
                 <div class="connection-row">
                     <span>Pool Password</span>
                     <code>x</code>
                 </div>
+                <div class="text-500 text-xs mt-2">{{i18n.t('nmminerNote')}}</div>
             </ng-container>
             <ng-container *ngIf="quickSetupDevice === 'asic'">
                 <div class="connection-row">

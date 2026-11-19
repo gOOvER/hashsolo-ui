@@ -11,8 +11,16 @@
   [![Angular](https://img.shields.io/badge/Angular-22-dd0031?logo=angular&logoColor=white)](package.json)
   [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
   [![Support](https://img.shields.io/badge/Support-donate.goover.dev-ff69b4?logo=ko-fi&logoColor=white)](https://donate.goover.dev)
+  [![Live Pool](https://img.shields.io/badge/Live%20Pool-hashsolo.goover.dev-f7931a?logo=bitcoin&logoColor=white)](https://hashsolo.goover.dev)
 
 </div>
+
+> [!IMPORTANT]
+> ### ⚡ Mine Live Now on **[hashsolo.goover.dev](https://hashsolo.goover.dev)**!
+> Want to see **HashSolo UI** in action or solo-mine Bitcoin right away? Point your **Bitaxe**, **NerdMiner**, **NMMiner**, **Antminer**, or **ASIC** to:
+> - **Web Dashboard:** [https://hashsolo.goover.dev](https://hashsolo.goover.dev)
+> - **Stratum V1 URL:** `stratum+tcp://hashsolo.goover.dev:3333` (Password: `x`)
+> - **Built for Everyone:** `0%` fee below 50 TH/s, KH/s-friendly start difficulty (`0.001`), live node sync & reward stats, and instant **Telegram / ntfy** alerts.
 
 > [!NOTE]
 > **Fork Notice:** HashSolo UI is an actively maintained fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui).

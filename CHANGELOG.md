@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
 
 ### Changed
+- Enabled 15s live auto-refresh on `SplashComponent` (`info$` and open `All Miners` modal) and refined the `NMMiner` Quick Setup tab to show the plain BTC address without `.worker` plus a configuration note.
 - Moved the device-specific miner Quick Setup (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`) out of the `Solo Mining` hero card into a compact modal popup triggered from the header button (`Geräte-Setup` / `Device Setup`) in `SplashComponent`.
 - Replaced `DE`/`EN` text toggle with inline SVG country flags, expanded German translations across `SplashComponent` & `DashboardComponent`, and replaced `bitaxe01` examples with neutral `worker1` / `Standard / ESP-Miner` labels.
 - Enabled Brotli/Gzip precompression, `zstd`/`gzip` encoding, and immutable caching for hashed assets in `docker/Caddyfile.tpl` (~5x smaller transfer size).
