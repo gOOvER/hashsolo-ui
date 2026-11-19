@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
 
 ### Changed
+- Added 15s live auto-refresh to `accounting$` and `accountingByPayoutMode$` in `SplashComponent` so the **Solo Mining** card and **Solo 10m / 1h** metrics update automatically.
+- Removed the `★ = Open Source Software & Hardware` legend lines under `Connected Miners` and `High Scores` in `SplashComponent`.
 - Centered the **Support HashSolo** donation card layout (`₿ BTC` badge pill + `donate.goover.dev` button) to match the other overview cards.
 
 ## [1.0.0] - 2026-11-19

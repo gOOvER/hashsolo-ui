@@ -130,8 +130,9 @@ export class SplashComponent {
     this.sv2$ = this.info$.pipe(map(info => info?.sv2));
     this.uptime$ = this.info$.pipe(map(info => info?.uptime ?? null));
     this.fee$ = this.info$.pipe(map(info => typeof info?.fee === 'number' ? info.fee : null));
-    this.accounting$ = this.appService.getAccounting().pipe(
-      catchError(() => of(null)),
+    this.accounting$ = timer(0, 15000).pipe(
+      switchMap(() => this.appService.getAccounting().pipe(catchError(() => of(null)))),
+      takeUntilDestroyed(),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     const emptyAccounting = {
@@ -144,10 +145,12 @@ export class SplashComponent {
       hashRateLastHour: 0,
       networkDifficultyPercent: 0
     };
-    this.accountingByPayoutMode$ = forkJoin({
-      pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting))) : of(emptyAccounting),
-      solo: this.appService.getAccounting('solo').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting)))
-    }).pipe(
+    this.accountingByPayoutMode$ = timer(0, 15000).pipe(
+      switchMap(() => forkJoin({
+        pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting))) : of(emptyAccounting),
+        solo: this.appService.getAccounting('solo').pipe(map(v => v ?? emptyAccounting), catchError(() => of(emptyAccounting)))
+      })),
+      takeUntilDestroyed(),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.networkInfo$ = this.appService.getNetworkInfo().pipe(
