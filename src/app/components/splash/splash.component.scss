@@ -420,12 +420,18 @@
 }
 
 .quick-setup-grid {
+    align-items: baseline;
     display: grid;
-    gap: 0.35rem 0.75rem;
-    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.45rem 1rem;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
     font-size: 0.85rem;
 }
 
 .quick-setup-grid > span {
     color: var(--text-color-secondary);
+    white-space: nowrap;
+}
+
+.quick-setup-grid > code {
+    overflow-wrap: anywhere;
 }
