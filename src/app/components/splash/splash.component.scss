@@ -296,3 +296,64 @@
     padding: 0.65rem 1rem;
     white-space: nowrap;
 }
+
+.node-status-card {
+    padding: 1rem 1.5rem;
+}
+
+.node-status-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+}
+
+.node-status-title {
+    align-items: center;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.node-status-meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    gap: 0.45rem;
+}
+
+.node-dot {
+    border-radius: 50%;
+    display: inline-block;
+    height: 0.6rem;
+    width: 0.6rem;
+}
+
+.node-dot-ready {
+    background: var(--green-400, #4ade80);
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+}
+
+.node-dot-syncing {
+    background: var(--yellow-500, #f59e0b);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
+}
+
+.node-dot-offline {
+    background: var(--red-400, #f87171);
+}
+
+.node-badge-ready {
+    background: rgba(34, 197, 94, 0.16);
+    color: var(--green-400, #4ade80);
+}
+
+.node-badge-syncing {
+    background: rgba(245, 158, 11, 0.16);
+    color: var(--yellow-500, #f59e0b);
+}
+
+.node-badge-offline {
+    background: rgba(248, 113, 113, 0.16);
+    color: var(--red-400, #f87171);
+}

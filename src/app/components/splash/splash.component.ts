@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
-import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay } from 'rxjs';
+import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay, switchMap, timer } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
-import { AppService } from '../../services/app.service';
+import { AppService, NodeStatus } from '../../services/app.service';
 import { AppConfigService } from '../../services/app-config.service';
 import { bitcoinAddressValidator } from '../../validators/bitcoin-address.validator';
 import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe';
@@ -28,6 +29,7 @@ export class SplashComponent {
   public accounting$: Observable<any>;
   public accountingByPayoutMode$: Observable<{ pplns: any; solo: any; }>;
   public networkInfo$: Observable<any>;
+  public nodeStatus$: Observable<NodeStatus | null>;
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
@@ -92,6 +94,11 @@ export class SplashComponent {
     );
     this.networkInfo$ = this.appService.getNetworkInfo().pipe(
       catchError(() => of(null)),
+      shareReplay({ refCount: true, bufferSize: 1 })
+    );
+    this.nodeStatus$ = timer(0, 5000).pipe(
+      switchMap(() => this.appService.getNodeStatus()),
+      takeUntilDestroyed(),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 

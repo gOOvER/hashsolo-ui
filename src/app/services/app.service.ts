@@ -6,6 +6,18 @@ import { AppConfigService } from './app-config.service';
 
 export type PayoutMode = 'solo' | 'pplns';
 
+export interface NodeStatus {
+    reachable: boolean;
+    ready: boolean;
+    chain: string | null;
+    blocks: number;
+    headers: number;
+    verificationProgress: number;
+    initialBlockDownload: boolean;
+    pruned: boolean;
+    sizeOnDisk: number;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -21,6 +33,11 @@ export class AppService {
     }
     public getNetworkInfo() {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/network`) as Observable<any>;
+    }
+    public getNodeStatus(): Observable<NodeStatus | null> {
+        return (this.httpClient.get(`${this.appConfig.apiUrl}/api/node/status`) as Observable<NodeStatus>).pipe(
+            catchError(() => of(null))
+        );
     }
     public getInfoChart() {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/info/chart`) as Observable<any>;

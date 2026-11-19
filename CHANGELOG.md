@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
-- Added interactive worker name input and live `<address>.<worker>` username preview with one-click copy in `SplashComponent`.
+- Added live Bitcoin Node status card (Synced/Syncing/Offline, blocks/headers, verification progress bar, pruned/disk size) polling `/api/node/status` every 5 seconds.
+- Added live `<address>.bitaxe01` username preview with one-click copy in `SplashComponent`.
 - Added empty-state messages for `Solo Hashrate` and `Connected Miners` when no data or miners are present yet.
 - Added `.node-version` (`26`) and `engines.node` (`>=26.0.0`) in `package.json`.
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.

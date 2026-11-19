@@ -126,6 +126,45 @@
             </div>
         </div>
 
+        <div class="col-12" *ngIf="nodeStatus$ | async as nodeStatus">
+            <div class="card node-status-card">
+                <div class="node-status-header">
+                    <div class="node-status-title">
+                        <span class="node-dot" [ngClass]="{
+                            'node-dot-ready': nodeStatus.ready,
+                            'node-dot-syncing': nodeStatus.reachable && !nodeStatus.ready,
+                            'node-dot-offline': !nodeStatus.reachable
+                        }"></span>
+                        <strong>Bitcoin Node</strong>
+                        <span class="mode-badge" [ngClass]="{
+                            'node-badge-ready': nodeStatus.ready,
+                            'node-badge-syncing': nodeStatus.reachable && !nodeStatus.ready,
+                            'node-badge-offline': !nodeStatus.reachable
+                        }">
+                            {{ nodeStatus.ready ? 'Synced' : (nodeStatus.reachable ? 'Syncing' : 'Offline') }}
+                        </span>
+                    </div>
+                    <div class="node-status-meta text-500">
+                        <ng-container *ngIf="nodeStatus.reachable; else nodeOfflineMeta">
+                            <span>{{ nodeStatus.chain || 'mainnet' }}</span>
+                            <span>·</span>
+                            <span>Blocks {{ nodeStatus.blocks | number }} / {{ nodeStatus.headers | number }}</span>
+                            <span>·</span>
+                            <span>{{ (nodeStatus.verificationProgress * 100) | number:'1.1-2' }}%</span>
+                            <span *ngIf="nodeStatus.pruned">· pruned</span>
+                            <span *ngIf="nodeStatus.sizeOnDisk">· {{ (nodeStatus.sizeOnDisk / 1073741824) | number:'1.1-2' }} GB</span>
+                        </ng-container>
+                        <ng-template #nodeOfflineMeta>
+                            <span>Waiting for bitcoind RPC connection… (auto-refresh 5s)</span>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="round-progress mt-2" *ngIf="nodeStatus.reachable && !nodeStatus.ready">
+                    <div class="round-progress-fill" [style.width.%]="(nodeStatus.verificationProgress || 0) * 100"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-12" *ngIf="accountingByPayoutMode$ | async as modeAccounting">
             <div class="mode-round-layout" [ngClass]="{'solo-only-layout': !pplnsEnabled}" *ngIf="networkInfo$ | async as networkInfo">
                 <div class="card round-card" *ngIf="pplnsEnabled">
