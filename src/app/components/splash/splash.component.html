@@ -140,23 +140,67 @@
                                         <button type="button" [class.active]="quickSetupDevice === 'asic'" (click)="quickSetupDevice = 'asic'">Antminer / ASIC</button>
                                     </div>
                                 </div>
-                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'standard'">
-                                    <span>Stratum Host</span><code>{{stratumHost}}</code>
-                                    <span>Port</span><code>{{stratumPort}}</code>
-                                    <span>Stratum User</span><code>{{minerUsernamePreview}}</code>
-                                    <span>{{i18n.t('password')}}</span><code>x</code>
-                                </div>
-                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'nmminer'">
-                                    <span>Pool URL</span><code>{{stratumHost}}</code>
-                                    <span>Pool Port</span><code>{{stratumPort}}</code>
-                                    <span>BTC Wallet</span><code>{{minerUsernamePreview}}</code>
-                                    <span>{{i18n.t('password')}}</span><code>x</code>
-                                </div>
-                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'asic'">
-                                    <span>Pool URL</span><code>stratum+tcp://{{stratumURL}}</code>
-                                    <span>{{i18n.t('worker')}}</span><code>{{minerUsernamePreview}}</code>
-                                    <span>{{i18n.t('password')}}</span><code>x</code>
-                                </div>
+                                <ng-container *ngIf="quickSetupDevice === 'standard'">
+                                    <div class="connection-row">
+                                        <span>Stratum Host</span>
+                                        <code>{{stratumHost}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumHost, 'Stratum Host')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>Port</span>
+                                        <code>{{stratumPort}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumPort, 'Port')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>Stratum User</span>
+                                        <code>{{minerUsernamePreview}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Stratum User')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>{{i18n.t('password')}}</span>
+                                        <code>x</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('x', 'Password')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="quickSetupDevice === 'nmminer'">
+                                    <div class="connection-row">
+                                        <span>Pool URL</span>
+                                        <code>{{stratumHost}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumHost, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>Pool Port</span>
+                                        <code>{{stratumPort}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(stratumPort, 'Pool Port')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>BTC Wallet</span>
+                                        <code>{{minerUsernamePreview}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'BTC Wallet')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>{{i18n.t('password')}}</span>
+                                        <code>x</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('x', 'Password')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="quickSetupDevice === 'asic'">
+                                    <div class="connection-row">
+                                        <span>Pool URL</span>
+                                        <code>stratum+tcp://{{stratumURL}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tcp://' + stratumURL, 'Pool URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>{{i18n.t('worker')}}</span>
+                                        <code>{{minerUsernamePreview}}</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText(minerUsernamePreview, 'Worker')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="connection-row">
+                                        <span>{{i18n.t('password')}}</span>
+                                        <code>x</code>
+                                        <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('x', 'Password')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                         <div class="lookup-panel">

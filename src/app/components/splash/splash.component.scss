@@ -401,8 +401,7 @@
 
 .quick-setup-box {
     border-top: 1px solid var(--surface-border);
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    margin-top: 0.25rem;
 }
 
 .quick-setup-header {
@@ -411,27 +410,10 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    padding: 0.65rem 0.75rem 0.25rem;
 }
 
 .quick-setup-header small {
     color: var(--text-color-secondary);
     font-weight: 600;
-}
-
-.quick-setup-grid {
-    align-items: baseline;
-    display: grid;
-    gap: 0.45rem 1rem;
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    font-size: 0.85rem;
-}
-
-.quick-setup-grid > span {
-    color: var(--text-color-secondary);
-    white-space: nowrap;
-}
-
-.quick-setup-grid > code {
-    overflow-wrap: anywhere;
 }
