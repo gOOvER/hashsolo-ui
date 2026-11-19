@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -15,7 +15,7 @@ export const primeNgServices = [
 const primeNgModules = [
     TableModule,
     ChartModule,
-    InputSwitchModule,
+    ToggleSwitchModule,
     ButtonModule,
     TooltipModule,
     SkeletonModule

@@ -8,6 +8,7 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
+  standalone: false,
   selector: 'app-worker',
   templateUrl: './worker.component.html',
   styleUrls: ['./worker.component.scss']

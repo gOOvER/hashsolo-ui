@@ -4,7 +4,7 @@ import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/c
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgParticlesModule } from 'ng-particles';
+import { NgxParticlesModule } from '@tsparticles/angular';
 
 import { PrimeNGModule } from '../prime-ng.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,7 +46,7 @@ import { AverageTimeToBlockPipe } from './pipes/average-time-to-block.pipe';
     AppLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    NgParticlesModule,
+    NgxParticlesModule,
     AverageTimeToBlockPipe
   ],
   providers: [

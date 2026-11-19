@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { AppConfigService } from './app-config.service';
 
@@ -26,10 +26,19 @@ export class AppService {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/info/chart`) as Observable<any>;
     }
     public getInfoChartByPayoutMode(payoutMode?: PayoutMode | 'all') {
-        return this.httpClient.get(`${this.appConfig.apiUrl}/api/info/chart/payout-modes${this.toPayoutModeQuery(payoutMode)}`) as Observable<any[]>;
+        return (this.httpClient.get(`${this.appConfig.apiUrl}/api/info/chart/payout-modes${this.toPayoutModeQuery(payoutMode)}`) as Observable<any[]>).pipe(
+            catchError(() =>
+                (this.getInfoChart() as Observable<any[]>).pipe(
+                    map((rows) => (rows ?? []).map((row) => ({ ...row, payoutMode: row?.payoutMode ?? 'solo' }))),
+                    catchError(() => of([]))
+                )
+            )
+        );
     }
     public getAccounting(payoutMode?: PayoutMode | 'all') {
-        return this.httpClient.get(`${this.appConfig.apiUrl}/api/info/accounting${this.toPayoutModeQuery(payoutMode)}`) as Observable<any>;
+        return (this.httpClient.get(`${this.appConfig.apiUrl}/api/info/accounting${this.toPayoutModeQuery(payoutMode)}`) as Observable<any>).pipe(
+            catchError(() => of(null))
+        );
     }
 
     private toPayoutModeQuery(payoutMode?: PayoutMode | 'all'): string {

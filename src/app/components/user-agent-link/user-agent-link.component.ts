@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-user-agent-link',
   templateUrl: './user-agent-link.component.html',
   styleUrls: ['./user-agent-link.component.scss']

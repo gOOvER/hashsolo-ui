@@ -5,6 +5,7 @@ import { filter, map, mergeMap, Observable, startWith } from 'rxjs';
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
+  standalone: false,
     selector: 'app-menu',
     templateUrl: './app.menu.component.html'
 })

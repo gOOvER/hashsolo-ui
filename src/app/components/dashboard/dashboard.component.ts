@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Table } from 'primeng/table';
-import { combineLatest, forkJoin, map, Observable, shareReplay } from 'rxjs';
+import { catchError, combineLatest, distinctUntilChanged, forkJoin, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService } from '../../services/app.service';
@@ -11,6 +11,7 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 
 
 @Component({
+  standalone: false,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -41,23 +42,33 @@ export class DashboardComponent implements AfterViewInit {
   ) {
 
     this.networkInfo$ = this.appService.getNetworkInfo().pipe(
+      catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 
     this.address = this.route.snapshot.params['address'];
-    this.clientInfo$ = this.clientService.getClientInfo(this.address).pipe(
+    const address$ = this.route.paramMap.pipe(
+      map(params => params.get('address') ?? ''),
+      distinctUntilChanged(),
+      tap(address => { this.address = address; }),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    this.clientInfoByPayoutMode$ = forkJoin({
-      pplns: this.clientService.getClientInfo(this.address, 'pplns'),
-      solo: this.clientService.getClientInfo(this.address, 'solo')
-    }).pipe(
+
+    this.clientInfo$ = address$.pipe(
+      switchMap(address => this.clientService.getClientInfo(address)),
+      shareReplay({ refCount: true, bufferSize: 1 })
+    );
+    this.clientInfoByPayoutMode$ = address$.pipe(
+      switchMap(address => forkJoin({
+        pplns: this.clientService.getClientInfo(address, 'pplns').pipe(catchError(() => of(null))),
+        solo: this.clientService.getClientInfo(address, 'solo').pipe(catchError(() => of(null)))
+      })),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 
     this.expandedRows$ = this.clientInfo$.pipe(map((info: any) => {
 
-      return info.workers.reduce((pre: any, cur: any) => { pre[cur.name] = true; return pre; }, {});
+      return (info?.workers ?? []).reduce((pre: any, cur: any) => { pre[cur.name] = true; return pre; }, {});
 
     }));
 
@@ -70,7 +81,7 @@ export class DashboardComponent implements AfterViewInit {
 
 
     this.chartData$ = combineLatest([
-      this.clientService.getClientInfoChartByPayoutMode(this.address, 'all'),
+      address$.pipe(switchMap(address => this.clientService.getClientInfoChartByPayoutMode(address, 'all'))),
       this.networkInfo$
     ]).pipe(
       map(([chartData, networkInfo]) => {

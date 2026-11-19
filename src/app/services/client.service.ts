@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { AppConfigService } from './app-config.service';
 import { PayoutMode } from './app.service';
@@ -22,7 +22,14 @@ export class ClientService {
     return this.httpClient.get(`${this.appConfig.apiUrl}/api/client/${address}/chart`) as Observable<any[]>;
   }
   public getClientInfoChartByPayoutMode(address: string, payoutMode?: PayoutMode | 'all') {
-    return this.httpClient.get(`${this.appConfig.apiUrl}/api/client/${address}/chart/payout-modes${this.toPayoutModeQuery(payoutMode)}`) as Observable<any[]>;
+    return (this.httpClient.get(`${this.appConfig.apiUrl}/api/client/${address}/chart/payout-modes${this.toPayoutModeQuery(payoutMode)}`) as Observable<any[]>).pipe(
+      catchError(() =>
+        this.getClientInfoChart(address).pipe(
+          map((rows) => (rows ?? []).map((row) => ({ ...row, payoutMode: row?.payoutMode ?? 'solo' }))),
+          catchError(() => of([]))
+        )
+      )
+    );
   }
 
   private toPayoutModeQuery(payoutMode?: PayoutMode | 'all'): string {

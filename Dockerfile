@@ -2,7 +2,7 @@
 # Docker build environment #
 ############################
 
-FROM node:lts-bookworm-slim AS build
+FROM node:26-bookworm-slim AS build
 
 # Upgrade all packages and install dependencies
 RUN apt-get update \
@@ -28,7 +28,7 @@ FROM caddy:alpine AS final
 EXPOSE 80
 WORKDIR /var/www/html
 
-COPY --from=build /build/dist/public-pool-ui .
+COPY --from=build /build/dist/hashsolo-ui .
 COPY docker/Caddyfile.tpl /etc/Caddyfile.tpl
 COPY docker/entrypoint.sh /entrypoint.sh
 

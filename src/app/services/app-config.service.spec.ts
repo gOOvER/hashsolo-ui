@@ -71,17 +71,17 @@ describe('AppConfigService', () => {
 
   it('uses runtime PPLNS connection URLs when present', () => {
     window.__PUBLIC_POOL_CONFIG__ = {
-      PPLNS_STRATUM_URL: 'public-pool.io:13333',
-      PPLNS_SECURE_STRATUM_URL: 'public-pool.io:14333',
-      PPLNS_STRATUM_V2_URL: 'public-pool.io:23331',
-      PPLNS_DATUM_URL: 'public-pool.io:23336'
+      PPLNS_STRATUM_URL: 'hashsolo.example.com:13333',
+      PPLNS_SECURE_STRATUM_URL: 'hashsolo.example.com:14333',
+      PPLNS_STRATUM_V2_URL: 'hashsolo.example.com:23331',
+      PPLNS_DATUM_URL: 'hashsolo.example.com:23336'
     };
 
     const service = new AppConfigService();
 
-    expect(service.pplnsStratumUrl).toBe('public-pool.io:13333');
-    expect(service.pplnsSecureStratumUrl).toBe('public-pool.io:14333');
-    expect(service.pplnsStratumV2Url).toBe('public-pool.io:23331');
-    expect(service.pplnsDatumUrl).toBe('public-pool.io:23336');
+    expect(service.pplnsStratumUrl).toBe('hashsolo.example.com:13333');
+    expect(service.pplnsSecureStratumUrl).toBe('hashsolo.example.com:14333');
+    expect(service.pplnsStratumV2Url).toBe('hashsolo.example.com:23331');
+    expect(service.pplnsDatumUrl).toBe('hashsolo.example.com:23336');
   });
 });

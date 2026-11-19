@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { combineLatest, forkJoin, map, Observable, of, shareReplay } from 'rxjs';
+import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService } from '../../services/app.service';
@@ -10,6 +10,7 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 
 
 @Component({
+  standalone: false,
   selector: 'app-splash',
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.scss']
@@ -72,15 +73,17 @@ export class SplashComponent {
     this.sv2$ = this.info$.pipe(map(info => info.sv2));
     this.uptime$ = this.info$.pipe(map(info => info.uptime))
     this.accounting$ = this.appService.getAccounting().pipe(
+      catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.accountingByPayoutMode$ = forkJoin({
-      pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns') : of(null),
-      solo: this.appService.getAccounting('solo')
+      pplns: this.pplnsEnabled ? this.appService.getAccounting('pplns').pipe(catchError(() => of(null))) : of(null),
+      solo: this.appService.getAccounting('solo').pipe(catchError(() => of(null)))
     }).pipe(
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.networkInfo$ = this.appService.getNetworkInfo().pipe(
+      catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 

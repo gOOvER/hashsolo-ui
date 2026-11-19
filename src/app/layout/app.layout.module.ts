@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
@@ -37,7 +37,7 @@ import { AppTopBarComponent } from './app.topbar.component';
         SidebarModule,
         BadgeModule,
         RadioButtonModule,
-        InputSwitchModule,
+        ToggleSwitchModule,
         RippleModule,
         RouterModule,
         //   AppConfigModule

@@ -16,26 +16,22 @@ jobs:
     name: Build and scan images
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - 
-        name: Build image from Dockerfile
-        uses: docker/build-push-action@v5.1.0
+      - name: Build image from Dockerfile
+        uses: docker/build-push-action@v6
         with:
           push: false
           load: true
-          tags: public-pool-ui:trivy
-      - 
-        name: Run Trivy vulnerability scanner against "latest" image
+          tags: hashsolo-ui:latest
+      - name: Run Trivy vulnerability scanner against "latest" image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: public-pool-ui:trivy
+          image-ref: 'hashsolo-ui:latest'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
-      - 
-        name: Upload "latest" Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Upload "latest" Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
