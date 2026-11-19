@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+    tags:
+      - 'v*'
   schedule:
     - cron: '0 3 * * 1' # Weekly rebuild every Monday at 03:00 UTC for fresh base image patches
   workflow_dispatch:
@@ -41,6 +43,8 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/hashsolo-ui
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
             type=sha,prefix=sha-
 
       - name: Build and push Docker image

@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-19
+
 ### Added
 - Added an **All Miners** (`Alle Miner`) button in the `Connected Miners` card header opening a modal popup (`GET /api/info/miners`) listing all active individual miner sessions (device, worker, masked address, session ID, hashrate, best difficulty, last seen) with a manual refresh button.
 - Added DE/EN language toggle (`I18nService`), device Quick Setup tabs (`Bitaxe / NerdAxe`, `NMMiner`, `Antminer / ASIC`), and `mempool.space` block height links in `SplashComponent`.
