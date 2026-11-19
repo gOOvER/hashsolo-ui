@@ -462,3 +462,23 @@
 .setup-modal-close:hover {
     color: var(--text-color);
 }
+
+.section-card-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.section-card-header h4 {
+    margin: 0;
+}
+
+.setup-modal--wide {
+    max-width: 900px;
+}
+
+.miners-modal-scroll {
+    max-height: 65vh;
+    overflow-y: auto;
+}

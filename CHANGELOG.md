@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- Added an **All Miners** (`Alle Miner`) button in the `Connected Miners` card header opening a modal popup (`GET /api/info/miners`) listing all active individual miner sessions (device, worker, masked address, session ID, hashrate, best difficulty, last seen) with a manual refresh button.
 - Added DE/EN language toggle (`I18nService`), device Quick Setup tabs (`Bitaxe / NerdAxe`, `NMMiner`, `Antminer / ASIC`), and `mempool.space` block height links in `SplashComponent`.
 - Added 15s live auto-refresh toggle and `Solo Block Chance` odds/yearly-probability metric in `DashboardComponent`.
 - Added Bitcoin P2P peer count (`connections`) and live next-block reward (`BTC` from `/api/info/next-block-reward`) to the **Bitcoin Node** status card.

@@ -352,7 +352,13 @@
 
         <div class="col-12">
             <div class="card">
-                <h4 style="text-align: center;">{{i18n.t('connectedMiners')}}</h4>
+                <div class="section-card-header">
+                    <h4>{{i18n.t('connectedMiners')}}</h4>
+                    <button type="button" class="setup-trigger-btn" (click)="openMinersModal()">
+                        <i class="pi pi-list" aria-hidden="true"></i>
+                        <span>{{i18n.t('allMiners')}}</span>
+                    </button>
+                </div>
                 <ng-container *ngIf="userAgents$ | async as userAgents; else loadingTable">
                     <ng-container *ngIf="userAgents.length > 0; else emptyMiners">
                         <p-table [value]="userAgents" styleClass="compact-table">
@@ -567,5 +573,61 @@
                 </div>
             </ng-container>
         </div>
+    </div>
+</div>
+
+<div class="setup-modal-backdrop" *ngIf="minersModalOpen" (click)="minersModalOpen = false">
+    <div class="setup-modal setup-modal--wide card" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+        <div class="setup-modal-header">
+            <div class="setup-modal-title">
+                <i class="pi pi-list" aria-hidden="true"></i>
+                <strong>{{i18n.t('allMinersTitle')}}</strong>
+            </div>
+            <div class="flex align-items-center gap-2">
+                <button type="button" class="setup-modal-close" (click)="openMinersModal()" title="Refresh" aria-label="Refresh">
+                    <i class="pi pi-refresh" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="setup-modal-close" (click)="minersModalOpen = false" aria-label="Close">
+                    <i class="pi pi-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="connectedMiners$ | async as miners; else loadingMinersModal">
+            <ng-container *ngIf="miners.length > 0; else emptyMinersModal">
+                <div class="miners-modal-scroll">
+                    <p-table [value]="miners" styleClass="compact-table">
+                        <ng-template #header>
+                            <tr>
+                                <th>{{i18n.t('device')}}</th>
+                                <th>{{i18n.t('worker')}}</th>
+                                <th>{{i18n.t('address')}}</th>
+                                <th>{{i18n.t('session')}}</th>
+                                <th class="numeric-cell">{{i18n.t('hashrate')}}</th>
+                                <th class="numeric-cell">{{i18n.t('bestDiffCol')}}</th>
+                                <th>{{i18n.t('lastSeen')}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-miner>
+                            <tr>
+                                <td data-label="Device"><app-user-agent-link [userAgent]="miner.userAgent"></app-user-agent-link></td>
+                                <td data-label="Worker"><code>{{ miner.worker }}</code></td>
+                                <td data-label="Address"><code>{{ miner.address }}</code></td>
+                                <td data-label="Session"><code>{{ miner.sessionId }}</code></td>
+                                <td data-label="Hashrate" class="numeric-cell">{{ miner.hashRate | hashSuffix }}</td>
+                                <td data-label="Best Difficulty" class="numeric-cell">{{ miner.bestDifficulty | numberSuffix }}</td>
+                                <td data-label="Last Seen">{{ miner.lastSeen | date:'HH:mm:ss' }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </ng-container>
+            <ng-template #emptyMinersModal>
+                <div class="empty-state text-500">{{i18n.t('emptyMiners')}} <code>stratum+tcp://{{stratumURL}}</code>.</div>
+            </ng-template>
+        </ng-container>
+        <ng-template #loadingMinersModal>
+            <p-skeleton width="100%" height="10rem"></p-skeleton>
+        </ng-template>
     </div>
 </div>

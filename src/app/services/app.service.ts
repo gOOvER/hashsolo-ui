@@ -26,6 +26,17 @@ export interface NextBlockReward {
     height: number;
 }
 
+export interface ConnectedMiner {
+    address: string;
+    worker: string;
+    sessionId: string;
+    userAgent: string;
+    hashRate: number;
+    bestDifficulty: number;
+    startTime: string;
+    lastSeen: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -38,6 +49,12 @@ export class AppService {
 
     public getInfo() {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/info`) as Observable<any>;
+    }
+    public getConnectedMiners(): Observable<ConnectedMiner[]> {
+        return (this.httpClient.get(`${this.appConfig.apiUrl}/api/info/miners`) as Observable<ConnectedMiner[]>).pipe(
+            timeout(4000),
+            catchError(() => of([]))
+        );
     }
     public getNetworkInfo() {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/network`) as Observable<any>;

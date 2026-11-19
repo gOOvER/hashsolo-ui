@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay, switchMap, timer } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
-import { AppService, NextBlockReward, NodeStatus } from '../../services/app.service';
+import { AppService, ConnectedMiner, NextBlockReward, NodeStatus } from '../../services/app.service';
 import { AppConfigService } from '../../services/app-config.service';
 import { I18nService } from '../../services/i18n.service';
 import { bitcoinAddressValidator } from '../../validators/bitcoin-address.validator';
@@ -38,6 +38,13 @@ export class SplashComponent {
   public copiedLabel: string | null = null;
   public quickSetupOpen = false;
   public quickSetupDevice: 'standard' | 'nmminer' | 'asic' = 'standard';
+  public minersModalOpen = false;
+  public connectedMiners$: Observable<ConnectedMiner[]> | null = null;
+
+  public openMinersModal(): void {
+    this.minersModalOpen = true;
+    this.connectedMiners$ = this.appService.getConnectedMiners();
+  }
 
   public get stratumHost(): string {
     const idx = this.stratumURL.lastIndexOf(':');
