@@ -1,6 +1,13 @@
 :80 {
-    root * /var/www/html
-    file_server
+    handle /api/* {
+        reverse_proxy {$API_UPSTREAM:hashsolo:3334}
+    }
+
+    handle {
+        root * /var/www/html
+        try_files {path} /index.html
+        file_server
+    }
 
     log {
         output stdout
