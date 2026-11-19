@@ -33,7 +33,8 @@ Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/ben
 
 > [!NOTE]
 > **Fork Notice:** HashSolo UI is an actively maintained fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui).
-> For a ready-to-run **Dokploy** Docker Compose stack (including Bitcoin Core, HashSolo backend, and HashSolo UI), see **[gOOvER/hashsolo-dokploy](https://github.com/gOOvER/hashsolo-dokploy)**.
+> - 📚 **Full Documentation:** Read the **[HashSolo GitHub Wiki](https://github.com/gOOvER/hashsolo/wiki)** (Dokploy setup, all UI/footer ENVs, Miner Setup, Discord Bot, and API docs).
+> - 🐳 **Docker Compose Stack:** See **[gOOvER/hashsolo-dokploy](https://github.com/gOOvER/hashsolo-dokploy)** for a ready-to-run Dokploy stack (`bitcoind` + `hashsolo` + `hashsolo-ui`).
 
 ---
 
