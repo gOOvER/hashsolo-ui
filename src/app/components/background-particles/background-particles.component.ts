@@ -46,7 +46,7 @@ export class BackgroundParticlesComponent implements OnInit {
         size: 'cover'
       },
       fullScreen: {
-        zIndex: 1
+        zIndex: -1
       },
       particles: {
         number: {
