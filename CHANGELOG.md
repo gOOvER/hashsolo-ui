@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
 
 ### Changed
+- Enabled Brotli/Gzip precompression, `zstd`/`gzip` encoding, and immutable caching for hashed assets in `docker/Caddyfile.tpl` (~5x smaller transfer size).
+- Added 4s timeout and 10s polling interval on `getNodeStatus()` so slow RPC responses during IBD cannot stall page loads.
 - Changed `AppConfigService.secureStratumUrl` to only return a value when explicitly configured, hiding `Stratum V1 + TLS` unless enabled.
 - Restored `primeflex@^3.3.1` for 12-column Flexbox grid compatibility, set particle canvas `zIndex: -1`, and removed the upstream Donate card.
 - Upgraded to Angular `^22.3.0`, PrimeNG `^22.1.5` (`ToggleSwitchModule`), PrimeIcons `^8.0.2`, `@tsparticles/angular@^4.6.0` + `tsparticles@^4.6.0` (replacing `ng-particles`), `ngx-device-detector@^12.0.0`, `bitcoin-address-validation@^4.0.0`, `zone.js@~0.16.3`, `gzipper@^8.3.0`, `jasmine-core@^7.0.2`, `webpack-bundle-analyzer@^5.4.3`, and TypeScript `^6.0.0`.

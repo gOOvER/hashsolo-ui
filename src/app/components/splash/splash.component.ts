@@ -96,7 +96,7 @@ export class SplashComponent {
       catchError(() => of(null)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    this.nodeStatus$ = timer(0, 5000).pipe(
+    this.nodeStatus$ = timer(0, 10000).pipe(
       switchMap(() => this.appService.getNodeStatus()),
       takeUntilDestroyed(),
       shareReplay({ refCount: true, bufferSize: 1 })

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, timeout } from 'rxjs';
 
 import { AppConfigService } from './app-config.service';
 
@@ -36,6 +36,7 @@ export class AppService {
     }
     public getNodeStatus(): Observable<NodeStatus | null> {
         return (this.httpClient.get(`${this.appConfig.apiUrl}/api/node/status`) as Observable<NodeStatus>).pipe(
+            timeout(4000),
             catchError(() => of(null))
         );
     }
