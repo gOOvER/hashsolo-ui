@@ -15,6 +15,14 @@
 
 </div>
 
+## 🤝 Contribute & Pull Requests Welcome!
+
+Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), we love transparent, self-hostable solo mining — but want a modern, actively maintained dashboard without stale Angular/npm security vulnerabilities.
+
+**Every contribution helps!** Whether it's a UI bug fix, translation improvement, chart/UX idea, or dependency/security hardening:
+- 🐛 Open an issue using our [Issue Templates](https://github.com/gOOvER/hashsolo-ui/issues/new/choose).
+- 🔧 Open a [Pull Request](https://github.com/gOOvER/hashsolo-ui/pulls) — PRs are always welcome and appreciated!
+
 > [!IMPORTANT]
 > ### ⚡ Mine Live Now on **[hashsolo.goover.dev](https://hashsolo.goover.dev)**!
 > Want to see **HashSolo UI** in action or solo-mine Bitcoin right away? Point your **Bitaxe**, **NerdMiner**, **NMMiner**, **Antminer**, or **ASIC** to:
@@ -65,16 +73,6 @@ npm test
 | `PUBLIC_POOL_SECURE_STRATUM_URL` | `""` | Optional Stratum TLS `host:port` (hidden unless set) |
 | `LOGLEVEL` | `INFO` | Caddy stdout log level |
 | `LOGFORMAT` | `json` | Caddy stdout log format |
-
----
-
-## 🤝 Contribute & Pull Requests Welcome!
-
-Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), we love transparent, self-hostable solo mining — but want a modern, actively maintained dashboard without stale Angular/npm security vulnerabilities.
-
-**Every contribution helps!** Whether it's a UI bug fix, translation improvement, chart/UX idea, or dependency/security hardening:
-- 🐛 Open an issue using our [Issue Templates](https://github.com/gOOvER/hashsolo-ui/issues/new/choose).
-- 🔧 Open a [Pull Request](https://github.com/gOOvER/hashsolo-ui/pulls) — PRs are always welcome and appreciated!
 
 ---
 
