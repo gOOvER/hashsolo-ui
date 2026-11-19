@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
 
+### Changed
+- Centered the **Support HashSolo** donation card layout (`₿ BTC` badge pill + `donate.goover.dev` button) to match the other overview cards.
+
 ## [1.0.0] - 2026-11-19
 
 ### Added

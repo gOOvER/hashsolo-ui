@@ -484,15 +484,7 @@
 }
 
 .donate-card {
-    padding: 1.15rem 1.5rem;
-}
-
-.donate-card-content {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 1.5rem;
-    justify-content: space-between;
+    padding: 1.35rem 1.5rem;
 }
 
 .donate-actions {
@@ -500,6 +492,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+    justify-content: center;
 }
 
 .donate-btc-box {
@@ -508,15 +501,23 @@
     border: 1px solid var(--surface-border);
     border-radius: 6px;
     display: inline-flex;
-    gap: 0.5rem;
+    gap: 0.55rem;
     padding: 0.25rem 0.5rem 0.25rem 0.75rem;
 }
 
+.donate-btc-badge {
+    color: #f7931a;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
 .donate-btc-box code {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     word-break: break-all;
 }
 
 .donate-link-btn {
+    padding: 0.45rem 0.8rem;
     text-decoration: none;
 }
