@@ -36,7 +36,21 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
-  public readonly donationBtcAddress = 'bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc';
+  public get donationBtcAddress(): string {
+    return this.appConfig.donationBtcAddress;
+  }
+  public get donationUrl(): string {
+    return this.appConfig.donationUrl;
+  }
+  public get donationLinkLabel(): string {
+    return this.appConfig.donationLinkLabel;
+  }
+  public get donationTitle(): string {
+    return this.appConfig.donationTitle || this.i18n.t('supportTitle');
+  }
+  public get donationSubtitle(): string {
+    return this.appConfig.donationSubtitle || this.i18n.t('supportSubtitle');
+  }
   public quickSetupOpen = false;
   public quickSetupDevice: 'standard' | 'nmminer' | 'asic' = 'standard';
   public minersModalOpen = false;

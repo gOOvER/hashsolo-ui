@@ -11,6 +11,11 @@ interface RuntimeConfig {
   PPLNS_SECURE_STRATUM_URL?: string;
   PPLNS_STRATUM_V2_URL?: string;
   PPLNS_DATUM_URL?: string;
+  DONATION_BTC_ADDRESS?: string;
+  DONATION_URL?: string;
+  DONATION_LINK_LABEL?: string;
+  DONATION_TITLE?: string;
+  DONATION_SUBTITLE?: string;
 }
 
 declare global {
@@ -86,6 +91,50 @@ export class AppConfigService {
     }
 
     return this.resolveOptionalUrl(environment.PPLNS_DATUM_URL);
+  }
+
+  public get donationBtcAddress(): string {
+    return this.resolveFooterSetting('DONATION_BTC_ADDRESS', 'bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc');
+  }
+
+  public get donationUrl(): string {
+    return this.resolveFooterSetting('DONATION_URL', 'https://donate.goover.dev');
+  }
+
+  public get donationLinkLabel(): string {
+    const custom = this.resolveFooterSetting('DONATION_LINK_LABEL', '');
+    if (custom) {
+      return custom;
+    }
+    const url = this.donationUrl;
+    if (!url) {
+      return '';
+    }
+    try {
+      return new URL(url).hostname;
+    } catch {
+      return url;
+    }
+  }
+
+  public get donationTitle(): string {
+    return this.resolveFooterSetting('DONATION_TITLE', '');
+  }
+
+  public get donationSubtitle(): string {
+    return this.resolveFooterSetting('DONATION_SUBTITLE', '');
+  }
+
+  private resolveFooterSetting(key: keyof RuntimeConfig, fallback: string): string {
+    const raw = window.__PUBLIC_POOL_CONFIG__?.[key]?.trim();
+    if (!raw) {
+      return fallback;
+    }
+    const lower = raw.toLowerCase();
+    if (lower === 'none' || lower === 'off' || lower === 'false') {
+      return '';
+    }
+    return raw;
   }
 
   private hasRuntimeValue(key: keyof RuntimeConfig): boolean {
