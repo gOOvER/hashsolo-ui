@@ -6,6 +6,7 @@ import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay, 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService, NextBlockReward, NodeStatus } from '../../services/app.service';
 import { AppConfigService } from '../../services/app-config.service';
+import { I18nService } from '../../services/i18n.service';
 import { bitcoinAddressValidator } from '../../validators/bitcoin-address.validator';
 import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe';
 
@@ -35,6 +36,17 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
+  public quickSetupDevice: 'bitaxe' | 'nmminer' | 'asic' = 'bitaxe';
+
+  public get stratumHost(): string {
+    const idx = this.stratumURL.lastIndexOf(':');
+    return idx > 0 ? this.stratumURL.slice(0, idx) : this.stratumURL;
+  }
+
+  public get stratumPort(): string {
+    const idx = this.stratumURL.lastIndexOf(':');
+    return idx > 0 ? this.stratumURL.slice(idx + 1) : '3333';
+  }
 
   public get minerUsernamePreview(): string {
     const addr = this.address?.valid && this.address.value?.trim()
@@ -57,7 +69,12 @@ export class SplashComponent {
   private networkInfo: any;
   private copiedTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private appService: AppService, private appConfig: AppConfigService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private appService: AppService,
+    private appConfig: AppConfigService,
+    private cdr: ChangeDetectorRef,
+    public i18n: I18nService
+  ) {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');

@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Table } from 'primeng/table';
-import { catchError, combineLatest, distinctUntilChanged, forkJoin, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, distinctUntilChanged, filter, forkJoin, map, Observable, of, shareReplay, switchMap, tap, timer } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService } from '../../services/app.service';
 import { ClientService } from '../../services/client.service';
+import { I18nService } from '../../services/i18n.service';
 import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe';
 
 
@@ -27,7 +29,9 @@ export class DashboardComponent implements AfterViewInit {
   public chartOptions: any;
 
   public networkInfo$: Observable<any>;
-  private networkInfo:any;
+  private networkInfo: any;
+  public autoRefresh = true;
+  private refreshTrigger$ = new BehaviorSubject<number>(0);
 
   @ViewChild('dataTable') dataTable!: Table;
 
@@ -38,13 +42,13 @@ export class DashboardComponent implements AfterViewInit {
   constructor(
     private clientService: ClientService,
     private route: ActivatedRoute,
-    private appService: AppService
+    private appService: AppService,
+    public i18n: I18nService
   ) {
+    timer(15000, 15000).pipe(filter(() => this.autoRefresh), takeUntilDestroyed()).subscribe(() => this.refreshTrigger$.next(this.refreshTrigger$.value + 1));
 
-    this.networkInfo$ = this.appService.getNetworkInfo().pipe(
-      catchError(() => of(null)),
-      shareReplay({ refCount: true, bufferSize: 1 })
-    );
+    this.networkInfo$ = this.refreshTrigger$.pipe(switchMap(() => this.appService.getNetworkInfo().pipe(catchError(() => of(null)))), shareReplay({ refCount: true, bufferSize: 1 }));
+
 
     this.address = this.route.snapshot.params['address'];
     const address$ = this.route.paramMap.pipe(
@@ -54,12 +58,12 @@ export class DashboardComponent implements AfterViewInit {
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 
-    this.clientInfo$ = address$.pipe(
-      switchMap(address => this.clientService.getClientInfo(address)),
+    this.clientInfo$ = combineLatest([address$, this.refreshTrigger$]).pipe(
+      switchMap(([address]) => this.clientService.getClientInfo(address)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    this.clientInfoByPayoutMode$ = address$.pipe(
-      switchMap(address => forkJoin({
+    this.clientInfoByPayoutMode$ = combineLatest([address$, this.refreshTrigger$]).pipe(
+      switchMap(([address]) => forkJoin({
         pplns: this.clientService.getClientInfo(address, 'pplns').pipe(catchError(() => of(null))),
         solo: this.clientService.getClientInfo(address, 'solo').pipe(catchError(() => of(null)))
       })),
@@ -81,7 +85,7 @@ export class DashboardComponent implements AfterViewInit {
 
 
     this.chartData$ = combineLatest([
-      address$.pipe(switchMap(address => this.clientService.getClientInfoChartByPayoutMode(address, 'all'))),
+      combineLatest([address$, this.refreshTrigger$]).pipe(switchMap(([address]) => this.clientService.getClientInfoChartByPayoutMode(address, 'all'))),
       this.networkInfo$
     ]).pipe(
       map(([chartData, networkInfo]) => {
@@ -184,6 +188,35 @@ export class DashboardComponent implements AfterViewInit {
   }
 
 
+
+  public toggleAutoRefresh(): void {
+    this.autoRefresh = !this.autoRefresh;
+    if (this.autoRefresh) {
+      this.refreshTrigger$.next(this.refreshTrigger$.value + 1);
+    }
+  }
+
+  public getAddressTotalHashRate(clientInfo: any): number {
+    return (clientInfo?.workers ?? []).reduce((acc: number, w: any) => acc + (Number(w?.hashRate) || 0), 0);
+  }
+
+  public getSoloBlockChance(clientInfo: any, networkInfo: any): { oddsText: string; yearlyPercent: string } {
+    const hashRate = this.getAddressTotalHashRate(clientInfo);
+    const difficulty = Number(networkInfo?.difficulty) || 0;
+    if (hashRate <= 0 || difficulty <= 0) {
+      return { oddsText: '—', yearlyPercent: '0.0000%' };
+    }
+    const secondsPerBlock = (difficulty * Math.pow(2, 32)) / hashRate;
+    const daysPerBlock = secondsPerBlock / 86400;
+    const yearlyProb = 1 - Math.exp(-(365 * 86400) / secondsPerBlock);
+    const oddsText = daysPerBlock >= 365
+      ? `1 in ${Math.round(daysPerBlock / 365).toLocaleString()} yr`
+      : `1 in ${Math.round(daysPerBlock).toLocaleString()} d`;
+    return {
+      oddsText,
+      yearlyPercent: `${(yearlyProb * 100).toFixed(4)}% / yr`
+    };
+  }
 
   ngAfterViewInit() {
 

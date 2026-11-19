@@ -30,8 +30,14 @@
                     <div class="col-12 lg:col-7">
                         <div class="connection-panel">
                             <div class="connection-panel-header">
-                                <span>Connection</span>
-                                <small *ngIf="copiedLabel">{{copiedLabel}} copied</small>
+                                <span>{{i18n.t('connection')}}</span>
+                                <div class="header-actions">
+                                    <small *ngIf="copiedLabel">{{copiedLabel}} copied</small>
+                                    <div class="lang-toggle" role="group" aria-label="Language">
+                                        <button type="button" [class.active]="i18n.lang === 'de'" (click)="i18n.setLang('de')">DE</button>
+                                        <button type="button" [class.active]="i18n.lang === 'en'" (click)="i18n.setLang('en')">EN</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="connection-mode-header">
                                 <span class="mode-badge mode-badge-solo">Solo</span>
@@ -121,14 +127,41 @@
                                 <button pButton type="button" class="p-button-text p-button-sm"
                                     (click)="copyText(minerUsernamePreview, 'Miner username')" title="Copy miner username"><i class="pi pi-copy" aria-hidden="true"></i></button>
                             </div>
+                            <div class="quick-setup-box">
+                                <div class="quick-setup-header">
+                                    <small>{{i18n.t('quickSetup')}}</small>
+                                    <div class="quick-setup-tabs">
+                                        <button type="button" [class.active]="quickSetupDevice === 'bitaxe'" (click)="quickSetupDevice = 'bitaxe'">Bitaxe / NerdAxe</button>
+                                        <button type="button" [class.active]="quickSetupDevice === 'nmminer'" (click)="quickSetupDevice = 'nmminer'">NMMiner</button>
+                                        <button type="button" [class.active]="quickSetupDevice === 'asic'" (click)="quickSetupDevice = 'asic'">Antminer / ASIC</button>
+                                    </div>
+                                </div>
+                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'bitaxe'">
+                                    <span>Stratum Host</span><code>{{stratumHost}}</code>
+                                    <span>Port</span><code>{{stratumPort}}</code>
+                                    <span>Stratum User</span><code>{{minerUsernamePreview}}</code>
+                                    <span>Password</span><code>x</code>
+                                </div>
+                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'nmminer'">
+                                    <span>Pool URL</span><code>{{stratumHost}}</code>
+                                    <span>Pool Port</span><code>{{stratumPort}}</code>
+                                    <span>BTC Wallet</span><code>{{minerUsernamePreview}}</code>
+                                    <span>Password</span><code>x</code>
+                                </div>
+                                <div class="quick-setup-grid" *ngIf="quickSetupDevice === 'asic'">
+                                    <span>Pool URL</span><code>stratum+tcp://{{stratumURL}}</code>
+                                    <span>Worker</span><code>{{minerUsernamePreview}}</code>
+                                    <span>Password</span><code>x</code>
+                                </div>
+                            </div>
                         </div>
                         <div class="lookup-panel">
-                            <div class="lookup-heading">Find Your Miners</div>
+                            <div class="lookup-heading">{{i18n.t('findMiners')}}</div>
                             <div class="login-panel">
                                 <input [formControl]="address" placeholder="Address (bc1...)" pInputText id="address"
                                     type="text" class="p-inputtext p-component p-element">
                                 <button [disabled]="address.invalid" pButton
-                                    [routerLink]="['app',address.value]">My Miners</button>
+                                    [routerLink]="['app',address.value]">{{i18n.t('myMiners')}}</button>
                             </div>
                         </div>
                     </div>
@@ -455,7 +488,7 @@
 
         <div class="col-12" *ngIf="blockData$ | async as blockData">
             <div class="card">
-                <h4 style="text-align: center;"> Found Blocks</h4>
+                <h4 style="text-align: center;">{{i18n.t('foundBlocks')}}</h4>
                 <p-table [value]="blockData" styleClass="compact-table">
                     <ng-template pTemplate="header">
                         <tr>
@@ -466,7 +499,9 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-block>
                         <tr>
-                            <td data-label="Height" class="numeric-cell">{{ block.height }}</td>
+                            <td data-label="Height" class="numeric-cell">
+                                <a [href]="'https://mempool.space/block/' + block.height" target="_blank" rel="noopener">{{ block.height }}</a>
+                            </td>
                             <td data-label="Address">{{ block.minerAddress }}</td>
                             <td data-label="Worker">{{ block.worker }}</td>
                         </tr>

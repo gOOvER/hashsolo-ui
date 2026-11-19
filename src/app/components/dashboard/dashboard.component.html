@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card page-header-card">
                 <div class="page-title">
-                    <span>Address</span>
+                    <span>{{i18n.t('address')}}</span>
                     <h2>{{address}}</h2>
                 </div>
                 <div class="hero-stats">
@@ -12,8 +12,14 @@
                         <strong>{{clientInfo.bestDifficulty | numberSuffix}}</strong>
                     </div>
                     <div class="hero-stat">
-                        <span>Workers</span>
+                        <span>{{i18n.t('workers')}}</span>
                         <strong>{{(clientInfo.workers?.length || 0) | number}}</strong>
+                    </div>
+                    <div class="hero-stat">
+                        <span>Auto-Refresh</span>
+                        <button pButton type="button" class="p-button-sm p-button-outlined" (click)="toggleAutoRefresh()">
+                            {{ autoRefresh ? i18n.t('liveAutoRefresh') : i18n.t('paused') }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -37,10 +43,10 @@
                             <small>{{networkInfo.networkhashps | hashSuffix}} network hashrate</small>
                         </div>
 
-                        <div class="snapshot-metric">
+                        <div class="snapshot-metric" *ngIf="modeInfo.pplns">
                             <span>PPLNS Work</span>
-                            <strong>{{modeInfo.pplns.accounting?.totalCreditedDifficulty | numberSuffix}}</strong>
-                            <small>{{modeInfo.pplns.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} last 10m</small>
+                            <strong>{{modeInfo.pplns?.accounting?.totalCreditedDifficulty | numberSuffix}}</strong>
+                            <small>{{modeInfo.pplns?.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} last 10m</small>
                         </div>
 
                         <div class="snapshot-metric" *ngIf="clientInfo.expectedPayout">
@@ -51,8 +57,14 @@
 
                         <div class="snapshot-metric">
                             <span>Solo Work</span>
-                            <strong>{{modeInfo.solo.accounting?.totalCreditedDifficulty | numberSuffix}}</strong>
-                            <small>{{modeInfo.solo.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} last 10m</small>
+                            <strong>{{(modeInfo.solo?.accounting?.totalCreditedDifficulty ?? 0) | numberSuffix}}</strong>
+                            <small>{{(modeInfo.solo?.accounting?.creditedDifficultyLast10Minutes ?? 0) | numberSuffix}} last 10m</small>
+                        </div>
+
+                        <div class="snapshot-metric">
+                            <span>{{i18n.t('soloBlockChance')}}</span>
+                            <strong>{{getSoloBlockChance(clientInfo, networkInfo).oddsText}}</strong>
+                            <small>{{getSoloBlockChance(clientInfo, networkInfo).yearlyPercent}}</small>
                         </div>
 
                         <div class="snapshot-metric">
