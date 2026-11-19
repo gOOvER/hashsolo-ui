@@ -16,6 +16,14 @@ export interface NodeStatus {
     initialBlockDownload: boolean;
     pruned: boolean;
     sizeOnDisk: number;
+    connections?: number | null;
+}
+
+export interface NextBlockReward {
+    rewardSats: number;
+    subsidySats: number;
+    feeSats: number;
+    height: number;
 }
 
 @Injectable({
@@ -36,6 +44,12 @@ export class AppService {
     }
     public getNodeStatus(): Observable<NodeStatus | null> {
         return (this.httpClient.get(`${this.appConfig.apiUrl}/api/node/status`) as Observable<NodeStatus>).pipe(
+            timeout(4000),
+            catchError(() => of(null))
+        );
+    }
+    public getNextBlockReward(): Observable<NextBlockReward | null> {
+        return (this.httpClient.get(`${this.appConfig.apiUrl}/api/info/next-block-reward`) as Observable<NextBlockReward>).pipe(
             timeout(4000),
             catchError(() => of(null))
         );

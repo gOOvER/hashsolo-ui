@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- Added Bitcoin P2P peer count (`connections`) and live next-block reward (`BTC` from `/api/info/next-block-reward`) to the **Bitcoin Node** status card.
 - Added live Bitcoin Node status card (Synced/Syncing/Offline, blocks/headers, verification progress bar, pruned/disk size) polling `/api/node/status` every 5 seconds.
 - Added live `<address>.bitaxe01` username preview with one-click copy in `SplashComponent`.
 - Added empty-state messages for `Solo Hashrate` and `Connected Miners` when no data or miners are present yet.
