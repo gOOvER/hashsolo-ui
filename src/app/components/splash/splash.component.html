@@ -11,13 +11,18 @@
                                 <h1 class="text-900 font-normal m-0">HashSolo</h1>
                                 <code>Fully Open Source Bitcoin Solo Mining Pool</code>
                                 <div class="hero-footer">
-                                    <ng-container *ngIf="fee$ | async as fee; else zeroOrLoadingFee">
-                                        <span><b>{{fee}}% FEE</b> (&ge; 50 TH/s, 0% under 50 TH/s)</span>
-                                    </ng-container>
-                                    <ng-template #zeroOrLoadingFee>
-                                        <span *ngIf="(fee$ | async) === 0"><b>NO FEES</b></span>
-                                    </ng-template>
-                                    <span>No second best.</span>
+                                    <div class="hero-footer-row">
+                                        <ng-container *ngIf="fee$ | async as fee; else zeroOrLoadingFee">
+                                            <span class="fee-pill"><b>{{fee}}% FEE</b></span>
+                                        </ng-container>
+                                        <ng-template #zeroOrLoadingFee>
+                                            <span *ngIf="(fee$ | async) === 0"><b>NO FEES</b></span>
+                                        </ng-template>
+                                        <span>No second best.</span>
+                                    </div>
+                                    <small class="text-500" *ngIf="(fee$ | async) as fee">
+                                        0% under 50 TH/s &middot; {{fee}}% &ge; 50 TH/s
+                                    </small>
                                 </div>
                             </div>
                         </div>

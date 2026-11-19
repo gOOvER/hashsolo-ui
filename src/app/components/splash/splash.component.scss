@@ -85,8 +85,16 @@
 .hero-footer {
     color: var(--text-color-secondary);
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
     margin-top: 1rem;
+}
+
+.hero-footer-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 .round-card {
