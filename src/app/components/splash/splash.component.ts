@@ -36,7 +36,7 @@ export class SplashComponent {
 
   public chartOptions: any;
   public copiedLabel: string | null = null;
-  public quickSetupDevice: 'bitaxe' | 'nmminer' | 'asic' = 'bitaxe';
+  public quickSetupDevice: 'standard' | 'nmminer' | 'asic' = 'standard';
 
   public get stratumHost(): string {
     const idx = this.stratumURL.lastIndexOf(':');
@@ -49,10 +49,11 @@ export class SplashComponent {
   }
 
   public get minerUsernamePreview(): string {
+    const fallbackAddr = this.i18n.lang === 'de' ? 'bc1q...deineadresse' : 'bc1q...youraddress';
     const addr = this.address?.valid && this.address.value?.trim()
       ? this.address.value.trim()
-      : 'bc1q...youraddress';
-    return `${addr}.bitaxe01`;
+      : fallbackAddr;
+    return `${addr}.worker1`;
   }
 
   public stratumURL = '';

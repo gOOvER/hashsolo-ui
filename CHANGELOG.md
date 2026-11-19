@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
 
 ### Changed
+- Replaced `DE`/`EN` text toggle with inline SVG country flags, expanded German translations across `SplashComponent` & `DashboardComponent`, and replaced `bitaxe01` examples with neutral `worker1` / `Standard / ESP-Miner` labels.
 - Enabled Brotli/Gzip precompression, `zstd`/`gzip` encoding, and immutable caching for hashed assets in `docker/Caddyfile.tpl` (~5x smaller transfer size).
 - Added 4s timeout and 10s polling interval on `getNodeStatus()` so slow RPC responses during IBD cannot stall page loads.
 - Changed `AppConfigService.secureStratumUrl` to only return a value when explicitly configured, hiding `Stratum V1 + TLS` unless enabled.
