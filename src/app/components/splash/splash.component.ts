@@ -48,12 +48,20 @@ export class SplashComponent {
     return idx > 0 ? this.stratumURL.slice(idx + 1) : '3333';
   }
 
+  public get tabWorkerName(): string {
+    switch (this.quickSetupDevice) {
+      case 'nmminer': return 'nmminer1';
+      case 'asic': return 'asic01';
+      default: return 'esp01';
+    }
+  }
+
   public get minerUsernamePreview(): string {
     const fallbackAddr = this.i18n.lang === 'de' ? 'bc1q...deineadresse' : 'bc1q...youraddress';
     const addr = this.address?.valid && this.address.value?.trim()
       ? this.address.value.trim()
       : fallbackAddr;
-    return `${addr}.worker1`;
+    return `${addr}.${this.tabWorkerName}`;
   }
 
   public stratumURL = '';
