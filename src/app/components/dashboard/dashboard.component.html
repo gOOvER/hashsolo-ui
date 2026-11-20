@@ -43,7 +43,7 @@
                             <small>{{networkInfo.networkhashps | hashSuffix}} network hashrate</small>
                         </div>
 
-                        <div class="snapshot-metric" *ngIf="modeInfo.pplns">
+                        <div class="snapshot-metric" *ngIf="pplnsEnabled && modeInfo.pplns">
                             <span>PPLNS Work</span>
                             <strong>{{modeInfo.pplns?.accounting?.totalCreditedDifficulty | numberSuffix}}</strong>
                             <small>{{modeInfo.pplns?.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} last 10m</small>
@@ -57,8 +57,8 @@
 
                         <div class="snapshot-metric">
                             <span>Solo Work</span>
-                            <strong>{{(modeInfo.solo?.accounting?.totalCreditedDifficulty ?? 0) | numberSuffix}}</strong>
-                            <small>{{(modeInfo.solo?.accounting?.creditedDifficultyLast10Minutes ?? 0) | numberSuffix}} last 10m</small>
+                            <strong>{{(clientInfo.accounting?.totalCreditedDifficulty ?? modeInfo.solo?.accounting?.totalCreditedDifficulty ?? 0) | numberSuffix}}</strong>
+                            <small>{{(clientInfo.accounting?.creditedDifficultyLast10Minutes ?? modeInfo.solo?.accounting?.creditedDifficultyLast10Minutes ?? 0) | numberSuffix}} last 10m</small>
                         </div>
 
                         <div class="snapshot-metric">
@@ -69,7 +69,7 @@
 
                         <div class="snapshot-metric">
                             <span>Best Difficulty</span>
-                            <strong>{{clientInfo.accounting?.bestSubmissionDifficulty | numberSuffix}}</strong>
+                            <strong>{{(clientInfo.accounting?.bestSubmissionDifficulty ?? clientInfo.bestDifficulty ?? 0) | numberSuffix}}</strong>
                             <small>Best submitted difficulty for this address</small>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
-                            <th>Mode</th>
+                            <th *ngIf="pplnsEnabled">Mode</th>
                             <th class="numeric-cell">Session ID</th>
                             <th class="numeric-cell">Hashrate</th>
                             <th class="numeric-cell">Best Difficulty</th>
@@ -110,16 +110,16 @@
                                 </button>
                                 <span class="worker-name font-bold ml-2">{{worker.name}}</span>
                             </td>
-                            <td data-label="Mode">
+                            <td data-label="Mode" *ngIf="pplnsEnabled">
                                 <span *ngFor="let mode of getWorkerPayoutModes(worker.name, clientInfo.workers)"
                                     [class]="getPayoutModeClass(mode)">
                                     {{formatPayoutMode(mode)}}
                                 </span>
                             </td>
-                            <td data-label="Sessions" class="numeric-cell">{{getSessionCount(worker.name, clientInfo.workers)}} Sessions</td>
+                            <td data-label="Sessions" class="numeric-cell">{{getSessionCount(worker.name, clientInfo.workers)}} {{getSessionCount(worker.name, clientInfo.workers) === 1 ? 'Session' : 'Sessions'}}</td>
                             <td data-label="Hashrate" class="numeric-cell">{{getTotalHashRate(worker.name, clientInfo.workers) | hashSuffix}}</td>
                             <td data-label="Best Difficulty" class="numeric-cell">{{getBestDifficulty(worker.name, clientInfo.workers) | numberSuffix}}</td>
-                            <td></td>
+                            <td data-label="Rejected" class="numeric-cell">{{getTotalRejected(worker.name, clientInfo.workers)}}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -128,7 +128,7 @@
                     <ng-template #rowexpansion let-worker>
                         <tr [routerLink]="[worker.name, worker.sessionId]">
                             <td></td>
-                            <td data-label="Mode"><span [class]="getPayoutModeClass(worker.payoutMode)">{{formatPayoutMode(worker.payoutMode)}}</span></td>
+                            <td data-label="Mode" *ngIf="pplnsEnabled"><span [class]="getPayoutModeClass(worker.payoutMode)">{{formatPayoutMode(worker.payoutMode)}}</span></td>
                             <td data-label="Session ID" class="numeric-cell">{{worker.sessionId}}</td>
                             <td data-label="Hashrate" class="numeric-cell">{{worker.hashRate | hashSuffix}}</td>
                             <td data-label="Best Difficulty" class="numeric-cell">{{worker.bestDifficulty | numberSuffix}}</td>

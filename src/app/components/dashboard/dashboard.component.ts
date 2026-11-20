@@ -8,6 +8,7 @@ import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService } from '../../services/app.service';
 import { ClientService } from '../../services/client.service';
 import { I18nService } from '../../services/i18n.service';
+import { AppConfigService } from '../../services/app-config.service';
 import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe';
 
 
@@ -31,6 +32,7 @@ export class DashboardComponent implements AfterViewInit {
   public networkInfo$: Observable<any>;
   private networkInfo: any;
   public autoRefresh = true;
+  public pplnsEnabled = false;
   private refreshTrigger$ = new BehaviorSubject<number>(0);
 
   @ViewChild('dataTable') dataTable!: Table;
@@ -43,8 +45,15 @@ export class DashboardComponent implements AfterViewInit {
     private clientService: ClientService,
     private route: ActivatedRoute,
     private appService: AppService,
+    private appConfig: AppConfigService,
     public i18n: I18nService
   ) {
+    this.pplnsEnabled = Boolean(
+      this.appConfig.pplnsStratumUrl ||
+      this.appConfig.pplnsSecureStratumUrl ||
+      this.appConfig.pplnsStratumV2Url ||
+      this.appConfig.pplnsDatumUrl
+    );
     timer(15000, 15000).pipe(filter(() => this.autoRefresh), takeUntilDestroyed()).subscribe(() => this.refreshTrigger$.next(this.refreshTrigger$.value + 1));
 
     this.networkInfo$ = this.refreshTrigger$.pipe(switchMap(() => this.appService.getNetworkInfo().pipe(catchError(() => of(null)))), shareReplay({ refCount: true, bufferSize: 1 }));
@@ -285,6 +294,12 @@ export class DashboardComponent implements AfterViewInit {
         };
       })
       .filter(dataset => dataset.data.length > 0);
+  }
+
+  public getTotalRejected(name: string, workers: any[]): number {
+    return (workers ?? [])
+      .filter(w => w.name == name)
+      .reduce((pre, cur) => pre + (cur.rejectedLowDiff || 0) + (cur.rejectedStaleJob || 0) + (cur.rejectedDuplicate || 0), 0);
   }
 
   public getWorkerPayoutModes(name: string, workers: any[]): string[] {

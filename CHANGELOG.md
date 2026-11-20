@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
 
 ### Changed
+- Cleaned up `DashboardComponent` for Solo-only pools: hid `PPLNS Work` and empty `Mode` column unless PPLNS is configured, wired `Solo Work` & `Best Difficulty` to `clientInfo.accounting` (with fallback to `clientInfo.bestDifficulty`), and added total **Rejected** count to worker group headers.
 - Made the footer donation card runtime-configurable via `DONATION_BTC_ADDRESS`, `DONATION_URL`, `DONATION_LINK_LABEL`, `DONATION_TITLE`, and `DONATION_SUBTITLE` in `docker/entrypoint.sh` and `AppConfigService` (defaulting to gOOvER's BTC address and `donate.goover.dev`, or hidden when set to `none`).
 - Highlighted `0% FEE < 50 TH/s` in green in the hero badge when `DEV_FEE_ADDRESS` is configured (with `≥ 50 TH/s: 1.5% Dev-Fee` in the subline) and cleanly displays `0% FEE` when no dev fee is configured.
 - Added 15s live auto-refresh to `accounting$` and `accountingByPayoutMode$` in `SplashComponent` so the **Solo Mining** card and **Solo 10m / 1h** metrics update automatically.
