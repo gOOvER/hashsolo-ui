@@ -95,6 +95,7 @@
                             <th class="numeric-cell">Session ID</th>
                             <th class="numeric-cell">Hashrate</th>
                             <th class="numeric-cell">Best Difficulty</th>
+                            <th class="numeric-cell">Rejected</th>
                             <th class="numeric-cell">Uptime</th>
                             <th class="numeric-cell">Last Seen</th>
                         </tr>
@@ -120,6 +121,7 @@
                             <td data-label="Best Difficulty" class="numeric-cell">{{getBestDifficulty(worker.name, clientInfo.workers) | numberSuffix}}</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </ng-template>
 
@@ -130,6 +132,10 @@
                             <td data-label="Session ID" class="numeric-cell">{{worker.sessionId}}</td>
                             <td data-label="Hashrate" class="numeric-cell">{{worker.hashRate | hashSuffix}}</td>
                             <td data-label="Best Difficulty" class="numeric-cell">{{worker.bestDifficulty | numberSuffix}}</td>
+                            <td data-label="Rejected" class="numeric-cell"
+                                [pTooltip]="'Low Diff: ' + (worker.rejectedLowDiff || 0) + ' | Stale: ' + (worker.rejectedStaleJob || 0) + ' | Duplicate: ' + (worker.rejectedDuplicate || 0)">
+                                {{ (worker.rejectedLowDiff || 0) + (worker.rejectedStaleJob || 0) + (worker.rejectedDuplicate || 0) }}
+                            </td>
                             <td data-label="Uptime" class="numeric-cell">{{worker.startTime | dateAgo}}</td>
                             <td data-label="Last Seen" class="numeric-cell">{{worker.lastSeen | dateAgo}}</td>
                         </tr>

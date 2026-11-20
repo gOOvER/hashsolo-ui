@@ -7,13 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
 
 ### Changed
 - Made the footer donation card runtime-configurable via `DONATION_BTC_ADDRESS`, `DONATION_URL`, `DONATION_LINK_LABEL`, `DONATION_TITLE`, and `DONATION_SUBTITLE` in `docker/entrypoint.sh` and `AppConfigService` (defaulting to gOOvER's BTC address and `donate.goover.dev`, or hidden when set to `none`).
 - Highlighted `0% FEE < 50 TH/s` in green in the hero badge when `DEV_FEE_ADDRESS` is configured (with `≥ 50 TH/s: 1.5% Dev-Fee` in the subline) and cleanly displays `0% FEE` when no dev fee is configured.
-- Added 15s live auto-refresh to `accounting$` and `accountingByPayoutMode$` in `SplashComponent` so the **Solo Mining** card and **Solo 10m / 1h** metrics update automatically.
-- Removed the `★ = Open Source Software & Hardware` legend lines under `Connected Miners` and `High Scores` in `SplashComponent`.
 - Added 15s live auto-refresh to `accounting$` and `accountingByPayoutMode$` in `SplashComponent` so the **Solo Mining** card and **Solo 10m / 1h** metrics update automatically.
 - Removed the `★ = Open Source Software & Hardware` legend lines under `Connected Miners` and `High Scores` in `SplashComponent`.
 - Centered the **Support HashSolo** donation card layout (`₿ BTC` badge pill + `donate.goover.dev` button) to match the other overview cards.
@@ -30,6 +29,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added empty-state messages for `Solo Hashrate` and `Connected Miners` when no data or miners are present yet.
 - Added `.node-version` (`26`) and `engines.node` (`>=26.0.0`) in `package.json`.
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
+
+### Added
+- Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 
 ### Changed
 - Enabled 15s live auto-refresh on `SplashComponent` (`info$` and open `All Miners` modal) and refined the `NMMiner` Quick Setup tab to show the plain BTC address without `.worker` plus a configuration note.
