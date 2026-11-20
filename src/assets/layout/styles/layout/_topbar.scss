@@ -18,7 +18,7 @@
         color: var(--surface-900);
         font-size: 1.5rem;
         font-weight: 500;
-        width: 300px;
+        width: auto;
         border-radius: 12px;
 
         img {
@@ -36,12 +36,15 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        background-color: transparent;
+        border: none;
+        padding: 0;
         color: var(--text-color-secondary);
         border-radius: 50%;
         width: 3rem;
         height: 3rem;
         cursor: pointer;
-        transition: background-color $transitionDuration;
+        transition: background-color $transitionDuration, color $transitionDuration;
 
         &:hover {
             color: var(--text-color);
@@ -63,7 +66,8 @@
     }
 
     .layout-menu-button {
-        margin-left: 2rem;
+        margin-left: 0;
+        margin-right: 0.75rem;
     }
 
     .layout-topbar-menu-button {
