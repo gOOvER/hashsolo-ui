@@ -152,6 +152,7 @@ export class DashboardComponent implements AfterViewInit {
           }
         },
         yPplns: {
+          display: this.pplnsEnabled,
           position: 'left',
           title: {
             display: true,

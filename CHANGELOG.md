@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Added missing `type="line"` on `<p-chart>` in `DashboardComponent` so the **Address Hashrate** chart renders properly (and hid the `yPplns` axis on Solo-only pools).
 - Fixed `.layout-topbar-button` missing `background-color: transparent`, `border: none`, and `padding: 0` in `_topbar.scss` so the topbar menu button no longer renders with a white default browser button background, and moved it cleanly to the left of the HashSolo logo without the `300px` spacer gap.
 - Replaced unstyled PrimeNG 22 `<p-toggleswitch>` in `SettingsComponent` with a self-contained accessible toggle switch so the **Background Particles** setting renders properly.
 
