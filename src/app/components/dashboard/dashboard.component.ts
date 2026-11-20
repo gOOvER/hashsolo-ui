@@ -14,8 +14,8 @@ import { AverageTimeToBlockPipe } from 'src/app/pipes/average-time-to-block.pipe
 
 
 @Component({
-  standalone: false,
   selector: 'app-dashboard',
+  standalone: false,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -57,7 +57,6 @@ export class DashboardComponent implements AfterViewInit {
     timer(15000, 15000).pipe(filter(() => this.autoRefresh), takeUntilDestroyed()).subscribe(() => this.refreshTrigger$.next(this.refreshTrigger$.value + 1));
 
     this.networkInfo$ = this.refreshTrigger$.pipe(switchMap(() => this.appService.getNetworkInfo().pipe(catchError(() => of(null)))), shareReplay({ refCount: true, bufferSize: 1 }));
-
 
     this.address = this.route.snapshot.params['address'];
     const address$ = this.route.paramMap.pipe(
@@ -205,12 +204,12 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  public getAddressTotalHashRate(clientInfo: any): number {
+  public getClientTotalHashRate(clientInfo: any): number {
     return (clientInfo?.workers ?? []).reduce((acc: number, w: any) => acc + (Number(w?.hashRate) || 0), 0);
   }
 
   public getSoloBlockChance(clientInfo: any, networkInfo: any): { oddsText: string; yearlyPercent: string } {
-    const hashRate = this.getAddressTotalHashRate(clientInfo);
+    const hashRate = this.getClientTotalHashRate(clientInfo);
     const difficulty = Number(networkInfo?.difficulty) || 0;
     if (hashRate <= 0 || difficulty <= 0) {
       return { oddsText: '—', yearlyPercent: '0.0000%' };

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Replaced unstyled PrimeNG 22 `<p-toggleswitch>` in `SettingsComponent` with a self-contained accessible toggle switch so the **Background Particles** setting renders properly.
 
 ### Added
+- Added a clean footer bar at the bottom of `SplashComponent` linking to **GitHub** (`gOOvER/hashsolo`), the **Wiki**, and the **GPL-3.0 License**.
 - Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
 
