@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- Replaced unstyled PrimeNG 22 `<p-toggleswitch>` in `SettingsComponent` with a self-contained accessible toggle switch so the **Background Particles** setting renders properly.
+
 ### Added
 - Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.
@@ -29,9 +32,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added empty-state messages for `Solo Hashrate` and `Connected Miners` when no data or miners are present yet.
 - Added `.node-version` (`26`) and `engines.node` (`>=26.0.0`) in `package.json`.
 - Added unit tests in `AppService` and `ClientService` verifying `404` fallbacks to `/api/info/chart`, `/api/client/:address/chart`, and `null` accounting.
-
-### Added
-- Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 
 ### Changed
 - Enabled 15s live auto-refresh on `SplashComponent` (`info$` and open `All Miners` modal) and refined the `NMMiner` Quick Setup tab to show the plain BTC address without `.worker` plus a configuration note.

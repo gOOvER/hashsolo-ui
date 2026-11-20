@@ -1,4 +1,17 @@
-<div class="card">
-    <h5>Background Particles </h5>
-    <p-toggleswitch [(ngModel)]="value" (ngModelChange)="particlesChanged($event)"></p-toggleswitch>
+<div class="card settings-card">
+    <div class="settings-row">
+        <div>
+            <h5 class="m-0 mb-1">Background Particles</h5>
+            <small class="text-500">Toggle animated constellation background.</small>
+        </div>
+        <button type="button"
+            role="switch"
+            [attr.aria-checked]="value"
+            class="hashsolo-switch"
+            [class.active]="value"
+            (click)="particlesChanged(!value)">
+            <span class="hashsolo-switch-thumb"></span>
+            <span class="hashsolo-switch-label">{{ value ? 'On' : 'Off' }}</span>
+        </button>
+    </div>
 </div>
