@@ -170,3 +170,29 @@ p-chart>div {
         padding: 10px;
     }
 }
+
+.p-inputtext {
+    background-color: var(--surface-ground);
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    padding: 0.625rem 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+
+    &::placeholder {
+        color: var(--text-color-secondary);
+        opacity: 0.85;
+    }
+
+    &:enabled:hover {
+        border-color: rgba(148, 163, 184, 0.55);
+    }
+
+    &:enabled:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 1px var(--primary-color);
+        outline: none;
+    }
+}

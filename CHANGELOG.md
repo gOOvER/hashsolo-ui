@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Added explicit theme-aligned `.p-inputtext` styling in `src/styles.scss` so PrimeNG 22 `pInputText` inputs render with visible background, border, and focus ring.
 - Shortened `heroTagline` and adjusted `.hero-brand code` typography in `SplashComponent` so the tagline fits cleanly on a single line without an awkward orphan wrap.
 
 ### Changed
