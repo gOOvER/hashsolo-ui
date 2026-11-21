@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-21
+
 ### Added
+- Added non-mainnet `network` pill in the hero header, live `version` badge (`v1.2.0`) in the footer, optional `Stratum V1 + TLS` / `Stratum V2` connection rows in the **Quick Setup** modal, and explicit `stratum+tcp://`-only note in the **NMMiner** setup tab.
 - Wired `PUBLIC_POOL_SECURE_STRATUM_URL` (`SECURE_STRATUM_URL`) and `PUBLIC_POOL_STRATUM_V2_URL` (`STRATUM_V2_URL`) into `docker/entrypoint.sh` and updated the Solo Stratum V2 URI scheme in `SplashComponent` to `stratum2+tcp://` (displaying the live `sv2.poolAuthorityPublicKey` from `/api/info`).
 
 ### Fixed

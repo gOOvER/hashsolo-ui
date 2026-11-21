@@ -14,11 +14,17 @@
                                     <div class="hero-footer-row" *ngIf="fee$ | async as fee; else zeroOrLoadingFee">
                                         <span class="fee-pill fee-pill-free"><b>{{i18n.t('feeUnder50')}}</b></span>
                                         <small class="text-500">{{i18n.t('feeAbove50')}} {{fee}}% Dev-Fee</small>
+                                        <ng-container *ngIf="info$ | async as info">
+                                            <span class="fee-pill" *ngIf="info?.network && info.network !== 'mainnet'"><b>{{info.network | uppercase}}</b></span>
+                                        </ng-container>
                                     </div>
                                     <ng-template #zeroOrLoadingFee>
                                         <div class="hero-footer-row" *ngIf="(fee$ | async) === 0">
                                             <span class="fee-pill fee-pill-free"><b>{{i18n.t('noFees')}}</b></span>
                                             <span>{{i18n.t('noSecondBest')}}</span>
+                                            <ng-container *ngIf="info$ | async as info">
+                                                <span class="fee-pill" *ngIf="info?.network && info.network !== 'mainnet'"><b>{{info.network | uppercase}}</b></span>
+                                            </ng-container>
                                         </div>
                                     </ng-template>
                                 </div>
@@ -523,6 +529,10 @@
                         <i class="pi pi-shield" aria-hidden="true"></i>
                         <span>GPL-3.0 License</span>
                     </a>
+                    <span class="footer-pill" *ngIf="info$ | async as info">
+                        <i class="pi pi-tag" aria-hidden="true"></i>
+                        <span>v{{info?.version || '1.2.0'}}</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -568,6 +578,11 @@
                     <span>{{i18n.t('password')}}</span>
                     <code>x</code>
                 </div>
+                <div class="connection-row" *ngIf="secureStratumURL">
+                    <span>Stratum V1 + TLS</span>
+                    <code>stratum+tls://{{secureStratumURL}}</code>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tls://' + secureStratumURL, 'Pool TLS URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
             </ng-container>
             <ng-container *ngIf="quickSetupDevice === 'nmminer'">
                 <div class="connection-row">
@@ -600,6 +615,21 @@
                 <div class="connection-row">
                     <span>{{i18n.t('password')}}</span>
                     <code>x</code>
+                </div>
+                <div class="connection-row" *ngIf="secureStratumURL">
+                    <span>Stratum V1 + TLS</span>
+                    <code>stratum+tls://{{secureStratumURL}}</code>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum+tls://' + secureStratumURL, 'Pool TLS URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
+                </div>
+                <div class="connection-row" *ngIf="stratumV2URL">
+                    <span>Stratum V2</span>
+                    <div class="connection-value-stack">
+                        <code>stratum2+tcp://{{stratumV2URL}}</code>
+                        <ng-container *ngIf="sv2$ | async as sv2">
+                            <code class="sv2-authority-key" *ngIf="sv2?.poolAuthorityPublicKey">Key: {{sv2.poolAuthorityPublicKey}}</code>
+                        </ng-container>
+                    </div>
+                    <button pButton type="button" class="p-button-text p-button-sm" (click)="copyText('stratum2+tcp://' + stratumV2URL, 'Stratum V2 URL')" title="Copy"><i class="pi pi-copy" aria-hidden="true"></i></button>
                 </div>
             </ng-container>
         </div>
