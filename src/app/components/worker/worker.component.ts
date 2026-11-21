@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { catchError, combineLatest, map, Observable, of, shareReplay } from 'rxjs';
 
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { WorkerService } from '../../services/worker.service';
@@ -38,6 +38,7 @@ export class WorkerComponent {
     const soloColor = documentStyle.getPropertyValue('--yellow-600') || '#d97706';
 
     this.workerInfo$ = this.workerService.getWorkerInfo(this.route.snapshot.params['address'], this.route.snapshot.params['workerName'], this.route.snapshot.params['workerId']).pipe(
+      catchError(() => of(null)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
 

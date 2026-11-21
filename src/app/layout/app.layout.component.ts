@@ -35,7 +35,7 @@ export class AppLayoutComponent implements OnDestroy {
                 });
             }
 
-            if (!this.profileMenuOutsideClickListener) {
+            if (!this.profileMenuOutsideClickListener && this.appTopbar?.menu?.nativeElement) {
                 this.profileMenuOutsideClickListener = this.renderer.listen('document', 'click', event => {
                     const isOutsideClicked = !(this.appTopbar.menu.nativeElement.isSameNode(event.target) || this.appTopbar.menu.nativeElement.contains(event.target)
                         || this.appTopbar.topbarMenuButton.nativeElement.isSameNode(event.target) || this.appTopbar.topbarMenuButton.nativeElement.contains(event.target));

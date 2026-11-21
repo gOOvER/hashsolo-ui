@@ -28,6 +28,7 @@ write_runtime_config() {
 
     config="${config}}"
 
+    rm -f /var/www/html/assets/runtime-config.js.gz /var/www/html/assets/runtime-config.js.br
     cat > /var/www/html/assets/runtime-config.js <<EOF
 window.__PUBLIC_POOL_CONFIG__ = ${config};
 EOF

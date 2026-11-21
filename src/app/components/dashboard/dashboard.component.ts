@@ -67,7 +67,7 @@ export class DashboardComponent implements AfterViewInit {
     );
 
     this.clientInfo$ = combineLatest([address$, this.refreshTrigger$]).pipe(
-      switchMap(([address]) => this.clientService.getClientInfo(address)),
+      switchMap(([address]) => this.clientService.getClientInfo(address).pipe(catchError(() => of(null)))),
       tap((info: any) => {
         for (const worker of info?.workers ?? []) {
           if (worker?.name && !(worker.name in this.expandedRowKeys)) {

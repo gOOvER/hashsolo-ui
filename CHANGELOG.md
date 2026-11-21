@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Removed stale precompressed `runtime-config.js.gz`/`.br` files in `docker/entrypoint.sh` and disabled caching on `/assets/runtime-config.js` in `docker/Caddyfile.tpl` so runtime env variables always take effect.
+- Guarded `AppLayoutComponent` against missing `#topbarmenu`, exported `InputTextModule` and `RippleModule` in `PrimeNGModule`, added `catchError` guards in `DashboardComponent`/`WorkerComponent`/`WorkerGroupComponent`, and hardened `HashSuffixPipe`/`NumberSuffixPipe`/`AverageTimeToBlockPipe` against `NaN`/`Infinity`.
 - Localized and clarified the **Solo Block Chance** metric in `DashboardComponent` (`1 Block / X Jahre` and `0,0000 % pro Jahr` in German vs `1 block / X yr` and `0.0000% / year` in English).
 - Fixed worker table row expansion in `DashboardComponent`: replaced legacy `#rowexpansion` with PrimeNG 22 `#expandedrow`, changed `$event.stopImmediatePropagation()` to `$event.stopPropagation()` so `[pRowToggler]` works, persisted `expandedRowKeys` across 15s auto-refreshes, and displayed group `Uptime` / `Last Seen` in the summary row.
 - Added missing `type="line"` on `<p-chart>` in `DashboardComponent` so the **Address Hashrate** chart renders properly (and hid the `yPplns` axis on Solo-only pools).

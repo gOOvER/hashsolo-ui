@@ -7,7 +7,7 @@
 
     handle {
         root * /var/www/html
-        @index path / /index.html
+        @index path / /index.html /assets/runtime-config.js
         header @index Cache-Control "no-cache, no-store, must-revalidate"
         @hashedAssets path_regexp \.[0-9A-Za-z]{8,}\.(js|css|woff2?|svg|png|ico)$
         header @hashedAssets Cache-Control "public, max-age=31536000, immutable"
