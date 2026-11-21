@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Localized and clarified the **Solo Block Chance** metric in `DashboardComponent` (`1 Block / X Jahre` and `0,0000 % pro Jahr` in German vs `1 block / X yr` and `0.0000% / year` in English).
 - Fixed worker table row expansion in `DashboardComponent`: replaced legacy `#rowexpansion` with PrimeNG 22 `#expandedrow`, changed `$event.stopImmediatePropagation()` to `$event.stopPropagation()` so `[pRowToggler]` works, persisted `expandedRowKeys` across 15s auto-refreshes, and displayed group `Uptime` / `Last Seen` in the summary row.
 - Added missing `type="line"` on `<p-chart>` in `DashboardComponent` so the **Address Hashrate** chart renders properly (and hid the `yPplns` axis on Solo-only pools).
 - Fixed `.layout-topbar-button` missing `background-color: transparent`, `border: none`, and `padding: 0` in `_topbar.scss` so the topbar menu button no longer renders with a white default browser button background, and moved it cleanly to the left of the HashSolo logo without the `300px` spacer gap.

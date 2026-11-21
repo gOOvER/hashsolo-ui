@@ -213,18 +213,25 @@ export class DashboardComponent implements AfterViewInit {
   public getSoloBlockChance(clientInfo: any, networkInfo: any): { oddsText: string; yearlyPercent: string } {
     const hashRate = this.getClientTotalHashRate(clientInfo);
     const difficulty = Number(networkInfo?.difficulty) || 0;
+    const isDe = this.i18n.lang === 'de';
     if (hashRate <= 0 || difficulty <= 0) {
-      return { oddsText: '—', yearlyPercent: '0.0000%' };
+      return { oddsText: '—', yearlyPercent: isDe ? '0,0000 % pro Jahr' : '0.0000% / year' };
     }
     const secondsPerBlock = (difficulty * Math.pow(2, 32)) / hashRate;
     const daysPerBlock = secondsPerBlock / 86400;
     const yearlyProb = 1 - Math.exp(-(365 * 86400) / secondsPerBlock);
+    const locale = isDe ? 'de-DE' : 'en-US';
     const oddsText = daysPerBlock >= 365
-      ? `1 in ${Math.round(daysPerBlock / 365).toLocaleString()} yr`
-      : `1 in ${Math.round(daysPerBlock).toLocaleString()} d`;
+      ? (isDe
+          ? `1 Block / ${Math.round(daysPerBlock / 365).toLocaleString(locale)} Jahre`
+          : `1 block / ${Math.round(daysPerBlock / 365).toLocaleString(locale)} yr`)
+      : (isDe
+          ? `1 Block / ${Math.round(daysPerBlock).toLocaleString(locale)} Tage`
+          : `1 block / ${Math.round(daysPerBlock).toLocaleString(locale)} d`);
+    const pct = (yearlyProb * 100).toFixed(4);
     return {
       oddsText,
-      yearlyPercent: `${(yearlyProb * 100).toFixed(4)}% / yr`
+      yearlyPercent: isDe ? `${pct.replace('.', ',')} % pro Jahr` : `${pct}% / year`
     };
   }
 
