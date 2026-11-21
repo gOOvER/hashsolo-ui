@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Updated `docker/Caddyfile.tpl` so SPA fallback routes (e.g. `/app/<address>`) also send `Cache-Control: no-cache, no-store, must-revalidate` (preventing stale `index.html` caching after updates, cf. upstream issue #136) and fixed the `@hashedAssets` regex (`[.-][0-9A-Za-z]{8,}`) to match Angular 22 hyphenated bundle hashes (e.g. `main-XXXXXXXX.js`, `styles-XXXXXXXX.css`).
 - Styled `.login-panel input.p-inputtext` and `.login-panel button.p-button` with higher specificity in `splash.component.scss` (overriding PrimeNG 22's runtime-injected tokenless CSS) for a clear input box, focus ring, and rounded button.
 - Simplified the hero fee row in `SplashComponent` to a single clean line (`[0% FEE < 50 TH/s] Ab 50 TH/s: 1.5% Dev-Fee` or `[0% FEE] Ohne Kompromisse.` when `0%`).
 - Added explicit theme-aligned `.p-inputtext` styling in `src/styles.scss` so PrimeNG 22 `pInputText` inputs render with visible background, border, and focus ring.
