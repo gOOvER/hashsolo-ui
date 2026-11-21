@@ -299,13 +299,51 @@
     min-width: 2rem;
 }
 
-.login-panel .p-button {
+.login-panel input.p-inputtext {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    padding: 0.65rem 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    width: 100%;
+
+    &::placeholder {
+        color: var(--text-color-secondary);
+        opacity: 0.85;
+    }
+
+    &:hover:not(:disabled) {
+        border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    &:focus {
+        background: rgba(15, 23, 42, 0.95);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.25);
+        outline: none;
+    }
+}
+
+.login-panel button.p-button {
     background: var(--primary-color);
-    border-color: var(--primary-color);
+    border: 1px solid transparent;
+    border-radius: 8px;
     color: var(--primary-color-text, #0f172a);
+    cursor: pointer;
     font-weight: 600;
-    padding: 0.65rem 1rem;
+    padding: 0.65rem 1.2rem;
+    transition: filter 0.15s ease, transform 0.1s ease;
     white-space: nowrap;
+
+    &:hover:not(:disabled) {
+        filter: brightness(1.08);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+    }
 }
 
 .node-status-card {

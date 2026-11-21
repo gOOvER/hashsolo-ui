@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Styled `.login-panel input.p-inputtext` and `.login-panel button.p-button` with higher specificity in `splash.component.scss` (overriding PrimeNG 22's runtime-injected tokenless CSS) for a clear input box, focus ring, and rounded button.
 - Simplified the hero fee row in `SplashComponent` to a single clean line (`[0% FEE < 50 TH/s] Ab 50 TH/s: 1.5% Dev-Fee` or `[0% FEE] Ohne Kompromisse.` when `0%`).
 - Added explicit theme-aligned `.p-inputtext` styling in `src/styles.scss` so PrimeNG 22 `pInputText` inputs render with visible background, border, and focus ring.
 - Shortened `heroTagline` and adjusted `.hero-brand code` typography in `SplashComponent` so the tagline fits cleanly on a single line without an awkward orphan wrap.
