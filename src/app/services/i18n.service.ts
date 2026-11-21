@@ -6,7 +6,7 @@ const STORAGE_KEY = 'hashsolo_lang';
 
 const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
   de: {
-    heroTagline: 'Open-Source Bitcoin Solo-Mining-Pool',
+    heroTagline: 'Open-Source Bitcoin Solo-Pool',
     noFees: '0% FEE',
     feeUnder50: '0% FEE < 50 TH/s',
     feeAbove50: 'Ab 50 TH/s:',
@@ -91,7 +91,7 @@ const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
     pplns10m: 'PPLNS 10 Minuten'
   },
   en: {
-    heroTagline: 'Fully Open Source Bitcoin Solo Mining Pool',
+    heroTagline: 'Open-Source Bitcoin Solo Pool',
     noFees: '0% FEE',
     feeUnder50: '0% FEE < 50 TH/s',
     feeAbove50: '≥ 50 TH/s:',

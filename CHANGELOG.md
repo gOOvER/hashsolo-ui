@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- Shortened `heroTagline` and adjusted `.hero-brand code` typography in `SplashComponent` so the tagline fits cleanly on a single line without an awkward orphan wrap.
+
 ### Changed
 - Enabled native multi-arch Docker image builds (`linux/amd64` on `ubuntu-latest` + `linux/arm64` on `ubuntu-24.04-arm`, merged via `docker buildx imagetools create` without QEMU) in `.github/workflows/docker-publish.yml`.
 
