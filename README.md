@@ -9,6 +9,7 @@
   [![Docker Build & Publish](https://github.com/gOOvER/hashsolo-ui/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/gOOvER/hashsolo-ui/actions/workflows/docker-publish.yml)
   [![Trivy Security Scan](https://github.com/gOOvER/hashsolo-ui/actions/workflows/trivy-analysis.yml/badge.svg)](https://github.com/gOOvER/hashsolo-ui/actions/workflows/trivy-analysis.yml)
   [![Angular](https://img.shields.io/badge/Angular-22-dd0031?logo=angular&logoColor=white)](package.json)
+  [![Docker Arch](https://img.shields.io/badge/Docker-amd64%20%7C%20arm64-2496ed?logo=docker&logoColor=white)](.github/workflows/docker-publish.yml)
   [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
   [![Support](https://img.shields.io/badge/Support-donate.goover.dev-ff69b4?logo=ko-fi&logoColor=white)](https://donate.goover.dev)
   [![Live Pool](https://img.shields.io/badge/Live%20Pool-hashsolo.goover.dev-f7931a?logo=bitcoin&logoColor=white)](https://hashsolo.goover.dev)
