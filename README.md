@@ -43,8 +43,8 @@ Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/ben
 
 - **Modern Stack:** Angular `22`, PrimeNG `22`, PrimeFlex `3.3.1`, `@tsparticles/angular` `4.6`.
 - **Live Bitcoin Node Status Card:** Polls `/api/node/status` and `/api/info/next-block-reward` to display `Synced` / `Syncing` / `Offline`, block/header height, progress bar, P2P peer count, pruning/disk usage, and live next-block reward in BTC.
-- **Miner Quick Setup Modal & Global DE/EN Toggle:** Compact header button (`Device Setup` / `Geräte-Setup`) opening a modal with interactive device tabs (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`), 1-click copy, and a global flag-based `DE | EN` language switcher in the topbar.
-- **Live Splash, Footer & All Miners Modal:** 15s auto-refresh on the home overview (`Connected Miners`, `High Scores`, `Found Blocks`), an **All Miners** modal (`GET /api/info/miners`), plus a unified footer with GitHub/Wiki/GPL-3.0 links and a configurable **Support / Donation** section (`DONATION_*`; set to `none` to hide).
+- **Miner Quick Setup Modal & Global DE/EN Toggle:** Compact header button (`Device Setup` / `Geräte-Setup`) opening a modal with interactive device tabs (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`), optional `Stratum V1 + TLS` & `Stratum V2` (+ Authority Key) rows, 1-click copy, and a global flag-based `DE | EN` language switcher in the topbar.
+- **Live Splash, Footer & All Miners Modal:** 15s auto-refresh on the home overview (`Connected Miners`, `High Scores`, `Found Blocks`), an **All Miners** modal (`GET /api/info/miners`), non-mainnet `network` badge, live `version` pill in the footer, plus a unified footer with GitHub/Wiki/GPL-3.0 links and a configurable **Support / Donation** section (`DONATION_*`; set to `none` to hide).
 - **Address Dashboard Enhancements:** 15s live auto-refresh toggle, **Solo Block Chance** odds & yearly probability calculator, expandable worker session rows (`Rejected` breakdown tooltip, `Uptime`, `Last Seen`), and `mempool.space` links on found blocks.
 - **Fast Multi-Arch Caddy Serving:** Built-in Caddy reverse-proxies `/api/*` to `API_UPSTREAM`, serves precompressed `.br`/`.gz` bundles (with fresh uncached `/assets/runtime-config.js`), caches hashed assets (`immutable`), and ships as native `linux/amd64` & `linux/arm64` images.
 - **Solo-Only & Optional TLS Ready:** Gracefully handles Solo-only backends and hides `Stratum V1 + TLS` unless `SECURE_STRATUM_URL` is explicitly configured.
@@ -77,6 +77,12 @@ npm test
 | `PUBLIC_POOL_STRATUM_V2_URL` | `""` | Optional Stratum V2 `host:port` (hidden unless set; displays `sv2.poolAuthorityPublicKey` from `/api/info`) |
 | `LOGLEVEL` | `INFO` | Caddy stdout log level |
 | `LOGFORMAT` | `json` | Caddy stdout log format |
+
+---
+
+## 🙏 Upstream & Fork Attribution
+
+**HashSolo UI** is an independent, actively maintained open-source (**GPL-3.0**) fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), modernized to **Angular 22 / PrimeNG 22** with updated Caddy caching headers, multi-arch builds, and full support for HashSolo's backend features.
 
 ---
 
