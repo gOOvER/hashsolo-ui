@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Wired `PUBLIC_POOL_SECURE_STRATUM_URL` (`SECURE_STRATUM_URL`) and `PUBLIC_POOL_STRATUM_V2_URL` (`STRATUM_V2_URL`) into `docker/entrypoint.sh` and updated the Solo Stratum V2 URI scheme in `SplashComponent` to `stratum2+tcp://` (displaying the live `sv2.poolAuthorityPublicKey` from `/api/info`).
+
 ### Fixed
 - Updated `docker/Caddyfile.tpl` so SPA fallback routes (e.g. `/app/<address>`) also send `Cache-Control: no-cache, no-store, must-revalidate` (preventing stale `index.html` caching after updates, cf. upstream issue #136) and fixed the `@hashedAssets` regex (`[.-][0-9A-Za-z]{8,}`) to match Angular 22 hyphenated bundle hashes (e.g. `main-XXXXXXXX.js`, `styles-XXXXXXXX.css`).
 - Styled `.login-panel input.p-inputtext` and `.login-panel button.p-button` with higher specificity in `splash.component.scss` (overriding PrimeNG 22's runtime-injected tokenless CSS) for a clear input box, focus ring, and rounded button.

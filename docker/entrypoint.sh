@@ -18,6 +18,16 @@ write_runtime_config() {
         separator=","
     fi
 
+    if [ "${PUBLIC_POOL_SECURE_STRATUM_URL+x}" ]; then
+        config="${config}${separator}\"SECURE_STRATUM_URL\":\"$(js_escape "$PUBLIC_POOL_SECURE_STRATUM_URL")\""
+        separator=","
+    fi
+
+    if [ "${PUBLIC_POOL_STRATUM_V2_URL+x}" ]; then
+        config="${config}${separator}\"STRATUM_V2_URL\":\"$(js_escape "$PUBLIC_POOL_STRATUM_V2_URL")\""
+        separator=","
+    fi
+
     for var_name in DONATION_BTC_ADDRESS DONATION_URL DONATION_LINK_LABEL DONATION_TITLE DONATION_SUBTITLE; do
         eval "var_val=\${$var_name:-}"
         if [ -n "$var_val" ]; then
