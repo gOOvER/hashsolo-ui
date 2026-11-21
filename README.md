@@ -42,10 +42,10 @@ Just like the original [`benjamin-wilson/public-pool-ui`](https://github.com/ben
 
 - **Modern Stack:** Angular `22`, PrimeNG `22`, PrimeFlex `3.3.1`, `@tsparticles/angular` `4.6`.
 - **Live Bitcoin Node Status Card:** Polls `/api/node/status` and `/api/info/next-block-reward` to display `Synced` / `Syncing` / `Offline`, block/header height, progress bar, P2P peer count, pruning/disk usage, and live next-block reward in BTC.
-- **Miner Quick Setup Modal & DE/EN Toggle:** Compact header button (`Device Setup` / `Geräte-Setup`) opening a modal with interactive device tabs (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`), 1-click copy, and persistent flag-based `DE | EN` language switcher.
-- **Live Splash & All Miners Modal:** 15s auto-refresh on the home overview (`Connected Miners`, `High Scores`, `Found Blocks`) plus an **All Miners** modal (`GET /api/info/miners`) listing all active individual miner sessions, and a configurable **Support / Donation** footer card (`DONATION_BTC_ADDRESS`, `DONATION_URL`, `DONATION_LINK_LABEL`, `DONATION_TITLE`, `DONATION_SUBTITLE`; set to `none` to hide).
-- **Address Dashboard Enhancements:** 15s live auto-refresh toggle, **Solo Block Chance** odds & yearly probability calculator, and `mempool.space` links on found blocks.
-- **Fast Single-Domain Caddy Serving:** Built-in Caddy reverse-proxies `/api/*` to `API_UPSTREAM`, serves precompressed `.br`/`.gz` bundles, caches hashed assets (`immutable`), and keeps `index.html` `no-cache`.
+- **Miner Quick Setup Modal & Global DE/EN Toggle:** Compact header button (`Device Setup` / `Geräte-Setup`) opening a modal with interactive device tabs (`Standard / ESP-Miner`, `NMMiner`, `Antminer / ASIC`), 1-click copy, and a global flag-based `DE | EN` language switcher in the topbar.
+- **Live Splash, Footer & All Miners Modal:** 15s auto-refresh on the home overview (`Connected Miners`, `High Scores`, `Found Blocks`), an **All Miners** modal (`GET /api/info/miners`), plus a unified footer with GitHub/Wiki/GPL-3.0 links and a configurable **Support / Donation** section (`DONATION_*`; set to `none` to hide).
+- **Address Dashboard Enhancements:** 15s live auto-refresh toggle, **Solo Block Chance** odds & yearly probability calculator, expandable worker session rows (`Rejected` breakdown tooltip, `Uptime`, `Last Seen`), and `mempool.space` links on found blocks.
+- **Fast Multi-Arch Caddy Serving:** Built-in Caddy reverse-proxies `/api/*` to `API_UPSTREAM`, serves precompressed `.br`/`.gz` bundles (with fresh uncached `/assets/runtime-config.js`), caches hashed assets (`immutable`), and ships as native `linux/amd64` & `linux/arm64` images.
 - **Solo-Only & Optional TLS Ready:** Gracefully handles Solo-only backends and hides `Stratum V1 + TLS` unless `SECURE_STRATUM_URL` is explicitly configured.
 
 ---
