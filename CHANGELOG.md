@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-21
+
 ### Fixed
 - Removed stale precompressed `runtime-config.js.gz`/`.br` files in `docker/entrypoint.sh` and disabled caching on `/assets/runtime-config.js` in `docker/Caddyfile.tpl` so runtime env variables always take effect.
 - Guarded `AppLayoutComponent` against missing `#topbarmenu`, exported `InputTextModule` and `RippleModule` in `PrimeNGModule`, added `catchError` guards in `DashboardComponent`/`WorkerComponent`/`WorkerGroupComponent`, and hardened `HashSuffixPipe`/`NumberSuffixPipe`/`AverageTimeToBlockPipe` against `NaN`/`Infinity`.
