@@ -37,7 +37,7 @@ export class DashboardComponent implements AfterViewInit {
 
   @ViewChild('dataTable') dataTable!: Table;
 
-  public expandedRows$: Observable<any>;
+  public expandedRowKeys: Record<string, boolean> = {};
 
 
 
@@ -68,6 +68,13 @@ export class DashboardComponent implements AfterViewInit {
 
     this.clientInfo$ = combineLatest([address$, this.refreshTrigger$]).pipe(
       switchMap(([address]) => this.clientService.getClientInfo(address)),
+      tap((info: any) => {
+        for (const worker of info?.workers ?? []) {
+          if (worker?.name && !(worker.name in this.expandedRowKeys)) {
+            this.expandedRowKeys[worker.name] = true;
+          }
+        }
+      }),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.clientInfoByPayoutMode$ = combineLatest([address$, this.refreshTrigger$]).pipe(
@@ -77,12 +84,6 @@ export class DashboardComponent implements AfterViewInit {
       })),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-
-    this.expandedRows$ = this.clientInfo$.pipe(map((info: any) => {
-
-      return (info?.workers ?? []).reduce((pre: any, cur: any) => { pre[cur.name] = true; return pre; }, {});
-
-    }));
 
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -101,12 +102,12 @@ export class DashboardComponent implements AfterViewInit {
         this.networkInfo = networkInfo;
         const datasets = this.toPayoutModeDatasets(chartData, {
           pplns: {
-            label: 'PPLNS 10 Minute',
+            label: this.i18n.t('pplns10m'),
             borderColor: primaryColor,
             backgroundColor: (context: any) => this.getChartGradient(context, primaryColor)
           },
           solo: {
-            label: 'Solo 10 Minute',
+            label: this.i18n.t('solo10m'),
             borderColor: soloColor,
             backgroundColor: (context: any) => this.getChartGradient(context, soloColor)
           }
@@ -300,6 +301,22 @@ export class DashboardComponent implements AfterViewInit {
     return (workers ?? [])
       .filter(w => w.name == name)
       .reduce((pre, cur) => pre + (cur.rejectedLowDiff || 0) + (cur.rejectedStaleJob || 0) + (cur.rejectedDuplicate || 0), 0);
+  }
+
+  public getGroupStartTime(name: string, workers: any[]): string | null {
+    const times = (workers ?? [])
+      .filter(w => w.name === name && w.startTime)
+      .map(w => new Date(w.startTime).getTime())
+      .filter(t => !Number.isNaN(t));
+    return times.length ? new Date(Math.min(...times)).toISOString() : null;
+  }
+
+  public getGroupLastSeen(name: string, workers: any[]): string | null {
+    const times = (workers ?? [])
+      .filter(w => w.name === name && w.lastSeen)
+      .map(w => new Date(w.lastSeen).getTime())
+      .filter(t => !Number.isNaN(t));
+    return times.length ? new Date(Math.max(...times)).toISOString() : null;
   }
 
   public getWorkerPayoutModes(name: string, workers: any[]): string[] {

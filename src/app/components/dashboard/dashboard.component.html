@@ -8,7 +8,7 @@
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span>Best Difficulty</span>
+                        <span>{{i18n.t('bestDifficulty')}}</span>
                         <strong>{{clientInfo.bestDifficulty | numberSuffix}}</strong>
                     </div>
                     <div class="hero-stat">
@@ -16,7 +16,7 @@
                         <strong>{{(clientInfo.workers?.length || 0) | number}}</strong>
                     </div>
                     <div class="hero-stat">
-                        <span>Auto-Refresh</span>
+                        <span>{{i18n.t('autoRefresh')}}</span>
                         <button pButton type="button" class="p-button-sm p-button-outlined"
                             (click)="toggleAutoRefresh()">
                             {{ autoRefresh ? i18n.t('liveAutoRefresh') : i18n.t('paused') }}
@@ -31,40 +31,37 @@
                 <ng-container *ngIf="clientInfoByPayoutMode$ | async as modeInfo">
                     <div class="snapshot-header">
                         <div>
-                            <span>Block Height</span>
+                            <span>{{i18n.t('blockHeight')}}</span>
                             <h4>{{networkInfo.blocks | number}}</h4>
                         </div>
-                        <small>Current block weight {{networkInfo.currentblockweight | number}}</small>
+                        <small>{{i18n.t('currentBlockWeight')}} {{networkInfo.currentblockweight | number}}</small>
                     </div>
 
                     <div class="snapshot-grid">
                         <div class="snapshot-metric is-primary">
-                            <span>Network Difficulty</span>
+                            <span>{{i18n.t('networkDifficulty')}}</span>
                             <strong>{{networkInfo.difficulty | numberSuffix}}</strong>
-                            <small>{{networkInfo.networkhashps | hashSuffix}} network hashrate</small>
+                            <small>{{networkInfo.networkhashps | hashSuffix}} {{i18n.t('networkHashrate')}}</small>
                         </div>
 
                         <div class="snapshot-metric" *ngIf="pplnsEnabled && modeInfo.pplns">
-                            <span>PPLNS Work</span>
+                            <span>{{i18n.t('pplnsWork')}}</span>
                             <strong>{{modeInfo.pplns?.accounting?.totalCreditedDifficulty | numberSuffix}}</strong>
-                            <small>{{modeInfo.pplns?.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} last
-                                10m</small>
+                            <small>{{modeInfo.pplns?.accounting?.creditedDifficultyLast10Minutes | numberSuffix}} {{i18n.t('last10m')}}</small>
                         </div>
 
                         <div class="snapshot-metric" *ngIf="clientInfo.expectedPayout">
-                            <span>Expected Payout</span>
+                            <span>{{i18n.t('expectedPayout')}}</span>
                             <strong>{{clientInfo.expectedPayout.payoutSats | number}} sats</strong>
-                            <small>{{clientInfo.expectedPayout.percent | number:'1.2-2'}}% if the next PPLNS block is
-                                found</small>
+                            <small>{{clientInfo.expectedPayout.percent | number:'1.2-2'}}{{i18n.t('expectedPayoutHint')}}</small>
                         </div>
 
                         <div class="snapshot-metric">
-                            <span>Solo Work</span>
+                            <span>{{i18n.t('soloWork')}}</span>
                             <strong>{{(clientInfo.accounting?.totalCreditedDifficulty ??
                                 modeInfo.solo?.accounting?.totalCreditedDifficulty ?? 0) | numberSuffix}}</strong>
                             <small>{{(clientInfo.accounting?.creditedDifficultyLast10Minutes ??
-                                modeInfo.solo?.accounting?.creditedDifficultyLast10Minutes ?? 0) | numberSuffix}} last
-                                10m</small>
+                                modeInfo.solo?.accounting?.creditedDifficultyLast10Minutes ?? 0) | numberSuffix}} {{i18n.t('last10m')}}</small>
                         </div>
 
                         <div class="snapshot-metric">
@@ -74,10 +71,10 @@
                         </div>
 
                         <div class="snapshot-metric">
-                            <span>Best Difficulty</span>
+                            <span>{{i18n.t('bestDifficulty')}}</span>
                             <strong>{{(clientInfo.accounting?.bestSubmissionDifficulty ?? clientInfo.bestDifficulty ??
                                 0) | numberSuffix}}</strong>
-                            <small>Best submitted difficulty for this address</small>
+                            <small>{{i18n.t('bestSubmittedDiffDesc')}}</small>
                         </div>
                     </div>
                 </ng-container>
@@ -88,72 +85,72 @@
             <div class="card section-card">
                 <div class="section-header">
                     <div>
-                        <h4>Workers</h4>
-                        <span>Grouped by worker name, expanded by active session.</span>
+                        <h4>{{i18n.t('workers')}}</h4>
+                        <span>{{i18n.t('workersGroupedDesc')}}</span>
                     </div>
                 </div>
                 <p-table #dataTable [rowHover]="true" groupRowsBy="name" dataKey="name" rowGroupMode="subheader"
-                    [value]="clientInfo.workers" [expandedRowKeys]="expandedRows$ | async" styleClass="compact-table">
+                    [value]="clientInfo.workers" [expandedRowKeys]="expandedRowKeys" styleClass="compact-table">
                     <ng-template #header>
                         <tr>
-                            <th>Name</th>
-                            <th *ngIf="pplnsEnabled">Mode</th>
-                            <th class="numeric-cell">Session ID</th>
-                            <th class="numeric-cell">Hashrate</th>
-                            <th class="numeric-cell">Best Difficulty</th>
-                            <th class="numeric-cell">Rejected</th>
-                            <th class="numeric-cell">Uptime</th>
-                            <th class="numeric-cell">Last Seen</th>
+                            <th>{{i18n.t('name')}}</th>
+                            <th *ngIf="pplnsEnabled">{{i18n.t('mode')}}</th>
+                            <th class="numeric-cell">{{i18n.t('sessionId')}}</th>
+                            <th class="numeric-cell">{{i18n.t('hashrate')}}</th>
+                            <th class="numeric-cell">{{i18n.t('bestDiffCol')}}</th>
+                            <th class="numeric-cell">{{i18n.t('rejected')}}</th>
+                            <th class="numeric-cell">{{i18n.t('uptime')}}</th>
+                            <th class="numeric-cell">{{i18n.t('lastSeen')}}</th>
                         </tr>
                     </ng-template>
 
                     <ng-template #groupheader let-worker let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr [routerLink]="[worker.name]">
-                            <td data-label="Name">
-                                <button (click)="$event.stopImmediatePropagation()" type="button" pButton pRipple
+                            <td [attr.data-label]="i18n.t('name')">
+                                <button (click)="$event.stopPropagation()" type="button" pButton pRipple
                                     [pRowToggler]="worker" class="p-button-text p-button-rounded p-button-plain mr-2">
                                     <i [class]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
                                         pButtonIcon></i>
                                 </button>
                                 <span class="worker-name font-bold ml-2">{{worker.name}}</span>
                             </td>
-                            <td data-label="Mode" *ngIf="pplnsEnabled">
+                            <td [attr.data-label]="i18n.t('mode')" *ngIf="pplnsEnabled">
                                 <span *ngFor="let mode of getWorkerPayoutModes(worker.name, clientInfo.workers)"
                                     [class]="getPayoutModeClass(mode)">
                                     {{formatPayoutMode(mode)}}
                                 </span>
                             </td>
-                            <td data-label="Sessions" class="numeric-cell">{{getSessionCount(worker.name,
+                            <td [attr.data-label]="i18n.t('sessionId')" class="numeric-cell">{{getSessionCount(worker.name,
                                 clientInfo.workers)}} {{getSessionCount(worker.name, clientInfo.workers) === 1 ?
                                 'Session' : 'Sessions'}}</td>
-                            <td data-label="Hashrate" class="numeric-cell">{{getTotalHashRate(worker.name,
+                            <td [attr.data-label]="i18n.t('hashrate')" class="numeric-cell">{{getTotalHashRate(worker.name,
                                 clientInfo.workers) | hashSuffix}}</td>
-                            <td data-label="Best Difficulty" class="numeric-cell">{{getBestDifficulty(worker.name,
+                            <td [attr.data-label]="i18n.t('bestDiffCol')" class="numeric-cell">{{getBestDifficulty(worker.name,
                                 clientInfo.workers) | numberSuffix}}</td>
-                            <td data-label="Rejected" class="numeric-cell">{{getTotalRejected(worker.name,
+                            <td [attr.data-label]="i18n.t('rejected')" class="numeric-cell">{{getTotalRejected(worker.name,
                                 clientInfo.workers)}}</td>
-                            <td></td>
-                            <td></td>
+                            <td [attr.data-label]="i18n.t('uptime')" class="numeric-cell">{{getGroupStartTime(worker.name, clientInfo.workers) | dateAgo}}</td>
+                            <td [attr.data-label]="i18n.t('lastSeen')" class="numeric-cell">{{getGroupLastSeen(worker.name, clientInfo.workers) | dateAgo}}</td>
                         </tr>
                     </ng-template>
 
-                    <ng-template #rowexpansion let-worker>
+                    <ng-template #expandedrow let-worker>
                         <tr [routerLink]="[worker.name, worker.sessionId]">
                             <td></td>
-                            <td data-label="Mode" *ngIf="pplnsEnabled"><span
+                            <td [attr.data-label]="i18n.t('mode')" *ngIf="pplnsEnabled"><span
                                     [class]="getPayoutModeClass(worker.payoutMode)">{{formatPayoutMode(worker.payoutMode)}}</span>
                             </td>
-                            <td data-label="Session ID" class="numeric-cell">{{worker.sessionId}}</td>
-                            <td data-label="Hashrate" class="numeric-cell">{{worker.hashRate | hashSuffix}}</td>
-                            <td data-label="Best Difficulty" class="numeric-cell">{{worker.bestDifficulty |
+                            <td [attr.data-label]="i18n.t('sessionId')" class="numeric-cell">{{worker.sessionId}}</td>
+                            <td [attr.data-label]="i18n.t('hashrate')" class="numeric-cell">{{worker.hashRate | hashSuffix}}</td>
+                            <td [attr.data-label]="i18n.t('bestDiffCol')" class="numeric-cell">{{worker.bestDifficulty |
                                 numberSuffix}}</td>
-                            <td data-label="Rejected" class="numeric-cell"
+                            <td [attr.data-label]="i18n.t('rejected')" class="numeric-cell"
                                 [pTooltip]="'Low Diff: ' + (worker.rejectedLowDiff || 0) + ' | Stale: ' + (worker.rejectedStaleJob || 0) + ' | Duplicate: ' + (worker.rejectedDuplicate || 0)">
                                 {{ (worker.rejectedLowDiff || 0) + (worker.rejectedStaleJob || 0) +
                                 (worker.rejectedDuplicate || 0) }}
                             </td>
-                            <td data-label="Uptime" class="numeric-cell">{{worker.startTime | dateAgo}}</td>
-                            <td data-label="Last Seen" class="numeric-cell">{{worker.lastSeen | dateAgo}}</td>
+                            <td [attr.data-label]="i18n.t('uptime')" class="numeric-cell">{{worker.startTime | dateAgo}}</td>
+                            <td [attr.data-label]="i18n.t('lastSeen')" class="numeric-cell">{{worker.lastSeen | dateAgo}}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -164,8 +161,8 @@
             <div class="card chart section-card">
                 <div class="section-header">
                     <div>
-                        <h4>Address Hashrate</h4>
-                        <span>10-minute credited-work hashrate split by payout mode.</span>
+                        <h4>{{i18n.t('addressHashrate')}}</h4>
+                        <span>{{i18n.t('addressHashrateDesc')}}</span>
                     </div>
                 </div>
                 <ng-container *ngIf="chartData$ | async as chartData; else loadingChart">

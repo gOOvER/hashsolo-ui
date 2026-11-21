@@ -7,11 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- Fixed worker table row expansion in `DashboardComponent`: replaced legacy `#rowexpansion` with PrimeNG 22 `#expandedrow`, changed `$event.stopImmediatePropagation()` to `$event.stopPropagation()` so `[pRowToggler]` works, persisted `expandedRowKeys` across 15s auto-refreshes, and displayed group `Uptime` / `Last Seen` in the summary row.
 - Added missing `type="line"` on `<p-chart>` in `DashboardComponent` so the **Address Hashrate** chart renders properly (and hid the `yPplns` axis on Solo-only pools).
 - Fixed `.layout-topbar-button` missing `background-color: transparent`, `border: none`, and `padding: 0` in `_topbar.scss` so the topbar menu button no longer renders with a white default browser button background, and moved it cleanly to the left of the HashSolo logo without the `300px` spacer gap.
 - Replaced unstyled PrimeNG 22 `<p-toggleswitch>` in `SettingsComponent` with a self-contained accessible toggle switch so the **Background Particles** setting renders properly.
 
 ### Added
+- Added a global **DE / EN** language switcher in `AppTopBarComponent` and full German/English translations for `DashboardComponent` via `I18nService`.
 - Added a clean footer bar at the bottom of `SplashComponent` linking to **GitHub** (`gOOvER/hashsolo`), the **Wiki**, and the **GPL-3.0 License**.
 - Added a **Rejected** column (`Low Diff` / `Stale` / `Duplicate` tooltip breakdown) to the `DashboardComponent` worker table.
 - Added a compact **Support HashSolo** donation card at the bottom of `SplashComponent` with one-click copy for the BTC Mainnet address (`bc1qt6wec64n3gnrhclp4vfckyvr8h27tmqswy28gc`) and link to `https://donate.goover.dev`.

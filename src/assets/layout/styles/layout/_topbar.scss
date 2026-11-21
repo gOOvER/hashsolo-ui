@@ -88,6 +88,29 @@
             margin-left: 1rem;
         }
     }
+
+    .topbar-lang-toggle {
+        margin-left: auto;
+        display: inline-flex;
+        gap: 0.25rem;
+
+        button {
+            align-items: center;
+            background: transparent;
+            border: 1px solid var(--surface-border);
+            border-radius: 4px;
+            color: var(--text-color-secondary);
+            cursor: pointer;
+            display: inline-flex;
+            padding: 0.25rem 0.45rem;
+
+            &.active {
+                background: rgba(59, 130, 246, 0.18);
+                border-color: var(--primary-color);
+                color: var(--text-color);
+            }
+        }
+    }
 }
 
 @media (max-width: 991px) {
