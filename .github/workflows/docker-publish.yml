@@ -18,6 +18,8 @@ concurrency:
 permissions:
   contents: read
   packages: write
+  id-token: write
+  attestations: write
 
 env:
   IMAGE_NAME: ghcr.io/goover/hashsolo-ui
@@ -117,8 +119,19 @@ jobs:
             type=sha,prefix=sha-
 
       - name: Create manifest list and push
+        id: merge
         working-directory: /tmp/digests
         run: |
           docker buildx imagetools create \
             $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf '${{ env.IMAGE_NAME }}@sha256:%s ' *)
+          first_tag=$(jq -r '.tags[0]' <<< "$DOCKER_METADATA_OUTPUT_JSON")
+          digest="sha256:$(docker buildx imagetools inspect --raw "$first_tag" | sha256sum | awk '{print $1}')"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.merge.outputs.digest }}
+          push-to-registry: true

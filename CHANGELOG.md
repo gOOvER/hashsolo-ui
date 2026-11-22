@@ -8,11 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - Added `AGENTS.md` documenting UI architecture, runtime config, Caddy caching, and build/test conventions.
+- Added `ALLOW_PUBLIC_METRICS` toggle in `docker/entrypoint.sh` & `docker/Caddyfile.tpl` (when `false`, Caddy returns `403 Forbidden` for `/api/metrics`).
 
 ### Changed
 - Updated GitHub Actions across `.github/workflows/` (`actions/checkout@v7`, `docker/login-action@v4`, `docker/metadata-action@v6`, `docker/build-push-action@v7`, `actions/upload-artifact@v7`).
 
 ### Security
+- Added `Permissions-Policy` and `Content-Security-Policy` security headers in `docker/Caddyfile.tpl`.
+- Added `actions/attest-build-provenance@v4` to `.github/workflows/docker-publish.yml` for multi-arch GHCR image provenance attestation.
 - Resolved all 18 Dependabot / `npm audit` vulnerabilities in `package-lock.json` (`qs`, `brace-expansion`, `engine.io`, `socket.io-parser`, `@babel/core`, `ws`, `follow-redirects`, `lodash`, `picomatch`, `flatted`, `minimatch`, `cookie`, `body-parser` → `found 0 vulnerabilities`).
 - Added GitHub **CodeQL** static analysis workflow (`.github/workflows/codeql.yml` for `javascript-typescript`).
 - Enabled `ignore-unfixed: true` in `.github/workflows/trivy-analysis.yml` so unpatched upstream OS CVEs are filtered from Code Scanning.

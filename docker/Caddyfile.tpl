@@ -8,7 +8,11 @@
     header {
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: http:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
     }
+
+    %%METRICS_GUARD%%
 
     handle /api/* {
         reverse_proxy {$API_UPSTREAM:hashsolo:3334}

@@ -75,6 +75,7 @@ npm test
 | `PUBLIC_POOL_STRATUM_URL` | `""` | Stratum `host:port` shown on the landing page |
 | `PUBLIC_POOL_SECURE_STRATUM_URL` | `""` | Optional Stratum TLS `host:port` (hidden unless set) |
 | `PUBLIC_POOL_STRATUM_V2_URL` | `""` | Optional Stratum V2 `host:port` (hidden unless set; displays `sv2.poolAuthorityPublicKey` from `/api/info`) |
+| `ALLOW_PUBLIC_METRICS` | `true` | Set to `false` to block public `/api/metrics` requests through Caddy (`403 Forbidden`) |
 | `LOGLEVEL` | `INFO` | Caddy stdout log level |
 | `LOGFORMAT` | `json` | Caddy stdout log format |
 

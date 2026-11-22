@@ -45,8 +45,15 @@ EOF
 }
 
 if [ ! -e "/etc/Caddyfile" ]; then
+    allow_public_metrics=$(printf '%s' "${ALLOW_PUBLIC_METRICS:-true}" | tr '[:upper:]' '[:lower:]')
+    if [ "$allow_public_metrics" = "false" ]; then
+        metrics_guard='respond /api/metrics "Forbidden" 403'
+    else
+        metrics_guard=''
+    fi
     sed -i "s#%%LOGLEVEL%%#${LOGLEVEL:-INFO}#g" /etc/Caddyfile.tpl
     sed -i "s#%%LOGFORMAT%%#${LOGFORMAT:-json}#g" /etc/Caddyfile.tpl
+    sed -i "s#%%METRICS_GUARD%%#${metrics_guard}#g" /etc/Caddyfile.tpl
     mv /etc/Caddyfile.tpl /etc/Caddyfile
 else
     rm -f /etc/Caddyfile.tpl
