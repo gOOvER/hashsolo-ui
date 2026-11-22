@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Added `AGENTS.md` documenting UI architecture, runtime config, Caddy caching, and build/test conventions.
 
+### Changed
+- Updated GitHub Actions across `.github/workflows/` (`actions/checkout@v7`, `docker/login-action@v4`, `docker/metadata-action@v6`, `docker/build-push-action@v7`, `actions/upload-artifact@v7`).
+
 ### Security
 - Resolved all 18 Dependabot / `npm audit` vulnerabilities in `package-lock.json` (`qs`, `brace-expansion`, `engine.io`, `socket.io-parser`, `@babel/core`, `ws`, `follow-redirects`, `lodash`, `picomatch`, `flatted`, `minimatch`, `cookie`, `body-parser` → `found 0 vulnerabilities`).
 - Added GitHub **CodeQL** static analysis workflow (`.github/workflows/codeql.yml` for `javascript-typescript`).
