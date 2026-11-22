@@ -83,7 +83,9 @@ npm test
 
 ## 🙏 Upstream & Fork Attribution
 
-**HashSolo UI** is an independent, actively maintained open-source (**GPL-3.0**) fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), modernized to **Angular 22 / PrimeNG 22** with updated Caddy caching headers, multi-arch builds, and full support for HashSolo's backend features.
+**HashSolo UI** is an actively maintained, hardened open-source (**GPL-3.0**) fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), modernized to **Angular 22 / PrimeNG 22** with updated Caddy caching headers, multi-arch builds, and full support for HashSolo's backend features.
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for upstream author credits and historical contributors.
 
 ---
 

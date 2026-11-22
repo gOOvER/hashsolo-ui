@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- Added `CONTRIBUTORS.md` (linked from `README.md`) crediting `@benjamin-wilson` and historical upstream contributors.
 - Added `AGENTS.md` documenting UI architecture, runtime config, Caddy caching, and build/test conventions.
 - Added `ALLOW_PUBLIC_METRICS` toggle in `docker/entrypoint.sh` & `docker/Caddyfile.tpl` (when `false`, Caddy returns `403 Forbidden` for `/api/metrics`).
 
