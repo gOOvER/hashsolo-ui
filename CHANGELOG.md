@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Security
+- Resolved all 18 Dependabot / `npm audit` vulnerabilities in `package-lock.json` (`qs`, `brace-expansion`, `engine.io`, `socket.io-parser`, `@babel/core`, `ws`, `follow-redirects`, `lodash`, `picomatch`, `flatted`, `minimatch`, `cookie`, `body-parser` → `found 0 vulnerabilities`).
 - Added GitHub **CodeQL** static analysis workflow (`.github/workflows/codeql.yml` for `javascript-typescript`).
 - Enabled `ignore-unfixed: true` in `.github/workflows/trivy-analysis.yml` so unpatched upstream OS CVEs are filtered from Code Scanning.
 
