@@ -6,9 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-### Added
-- Added explicit upstream PR contributor credits (`@sebrandon1`, `@SurefireStudios`, `@duckaxe`) for adapted/inspired improvements from `benjamin-wilson/public-pool-ui` (`#49`, `#43`, `#33`).
-
 ## [1.2.0] - 2026-11-21
 
 ### Added
