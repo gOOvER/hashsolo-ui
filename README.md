@@ -84,12 +84,6 @@ npm test
 
 **HashSolo UI** is an independent, actively maintained open-source (**GPL-3.0**) fork of [`benjamin-wilson/public-pool-ui`](https://github.com/benjamin-wilson/public-pool-ui), modernized to **Angular 22 / PrimeNG 22** with updated Caddy caching headers, multi-arch builds, and full support for HashSolo's backend features.
 
-### Community PR Credits (Adapted for HashSolo UI)
-Full credit to the original upstream contributors whose open PRs inspired or were adapted into HashSolo UI:
-- [`@sebrandon1`](https://github.com/sebrandon1) — Solo block odds display ([`#49`](https://github.com/benjamin-wilson/public-pool-ui/pull/49))
-- [`@SurefireStudios`](https://github.com/SurefireStudios) — `stratum2+tcp://` URL scheme ([`#43`](https://github.com/benjamin-wilson/public-pool-ui/pull/43))
-- [`@duckaxe`](https://github.com/duckaxe) — Dashboard auto-refresh ([`#33`](https://github.com/benjamin-wilson/public-pool-ui/pull/33))
-
 ---
 
 ## 💝 Support
