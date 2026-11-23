@@ -83,14 +83,25 @@
 
         <div class="col-12">
             <div class="card section-card">
-                <div class="section-header">
+                <div class="section-header worker-toolbar-header">
                     <div>
                         <h4>{{i18n.t('workers')}}</h4>
                         <span>{{i18n.t('workersGroupedDesc')}}</span>
                     </div>
+                    <div class="worker-toolbar">
+                        <input pInputText type="text" [(ngModel)]="workerSearch" [placeholder]="i18n.t('filterWorkers')" class="worker-filter-input" />
+                        <select [(ngModel)]="workerSort" class="worker-sort-select" aria-label="Sort workers">
+                            <option value="hashrate">{{i18n.t('sortHashrate')}}</option>
+                            <option value="bestDiff">{{i18n.t('sortBestDiff')}}</option>
+                            <option value="name">{{i18n.t('sortName')}}</option>
+                        </select>
+                        <button pButton type="button" class="p-button-sm p-button-outlined" (click)="exportWorkersCsv(clientInfo.workers)">
+                            <i class="pi pi-download mr-1" aria-hidden="true"></i>{{i18n.t('exportCsv')}}
+                        </button>
+                    </div>
                 </div>
                 <p-table #dataTable [rowHover]="true" groupRowsBy="name" dataKey="name" rowGroupMode="subheader"
-                    [value]="clientInfo.workers" [expandedRowKeys]="expandedRowKeys" styleClass="compact-table">
+                    [value]="getFilteredWorkers(clientInfo.workers)" [expandedRowKeys]="expandedRowKeys" styleClass="compact-table">
                     <ng-template #header>
                         <tr>
                             <th>{{i18n.t('name')}}</th>

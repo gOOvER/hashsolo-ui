@@ -88,7 +88,12 @@ const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
     addressHashrate: 'Adress-Hashrate',
     addressHashrateDesc: '10-Minuten-Hashrate aus gutgeschriebener Arbeit nach Auszahlungsmodus.',
     solo10m: 'Solo 10 Minuten',
-    pplns10m: 'PPLNS 10 Minuten'
+    pplns10m: 'PPLNS 10 Minuten',
+    filterWorkers: 'Worker / Gerät filtern…',
+    sortHashrate: 'Hashrate ↓',
+    sortBestDiff: 'Beste Diff ↓',
+    sortName: 'Name A–Z',
+    exportCsv: 'CSV Export'
   },
   en: {
     heroTagline: 'Open-Source Bitcoin Solo Pool',
@@ -173,7 +178,12 @@ const TRANSLATIONS: Record<UiLang, Record<string, string>> = {
     addressHashrate: 'Address Hashrate',
     addressHashrateDesc: '10-minute credited-work hashrate split by payout mode.',
     solo10m: 'Solo 10 Minute',
-    pplns10m: 'PPLNS 10 Minute'
+    pplns10m: 'PPLNS 10 Minute',
+    filterWorkers: 'Filter worker / device…',
+    sortHashrate: 'Hashrate ↓',
+    sortBestDiff: 'Best Diff ↓',
+    sortName: 'Name A–Z',
+    exportCsv: 'Export CSV'
   }
 };
 

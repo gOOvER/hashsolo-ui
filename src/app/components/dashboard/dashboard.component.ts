@@ -33,6 +33,8 @@ export class DashboardComponent implements AfterViewInit {
   private networkInfo: any;
   public autoRefresh = true;
   public pplnsEnabled = false;
+  public workerSearch = '';
+  public workerSort: 'hashrate' | 'bestDiff' | 'name' = 'hashrate';
   private refreshTrigger$ = new BehaviorSubject<number>(0);
 
   @ViewChild('dataTable') dataTable!: Table;
@@ -55,6 +57,7 @@ export class DashboardComponent implements AfterViewInit {
       this.appConfig.pplnsDatumUrl
     );
     timer(15000, 15000).pipe(filter(() => this.autoRefresh), takeUntilDestroyed()).subscribe(() => this.refreshTrigger$.next(this.refreshTrigger$.value + 1));
+    this.appService.connectLiveStream().pipe(filter(() => this.autoRefresh), takeUntilDestroyed()).subscribe(() => this.refreshTrigger$.next(this.refreshTrigger$.value + 1));
 
     this.networkInfo$ = this.refreshTrigger$.pipe(switchMap(() => this.appService.getNetworkInfo().pipe(catchError(() => of(null)))), shareReplay({ refCount: true, bufferSize: 1 }));
 
@@ -204,6 +207,46 @@ export class DashboardComponent implements AfterViewInit {
     if (this.autoRefresh) {
       this.refreshTrigger$.next(this.refreshTrigger$.value + 1);
     }
+  }
+
+  public getFilteredWorkers(workers: any[]): any[] {
+    const list = Array.isArray(workers) ? [...workers] : [];
+    const query = this.workerSearch.trim().toLowerCase();
+    const filtered = query
+      ? list.filter((w) =>
+          String(w?.name ?? '').toLowerCase().includes(query) ||
+          String(w?.userAgent ?? '').toLowerCase().includes(query) ||
+          String(w?.sessionId ?? '').toLowerCase().includes(query)
+        )
+      : list;
+
+    return filtered.sort((a, b) => {
+      if (this.workerSort === 'name') {
+        return String(a?.name ?? '').localeCompare(String(b?.name ?? ''));
+      }
+      if (this.workerSort === 'bestDiff') {
+        return (Number(b?.bestDifficulty) || 0) - (Number(a?.bestDifficulty) || 0);
+      }
+      return (Number(b?.hashRate) || 0) - (Number(a?.hashRate) || 0);
+    });
+  }
+
+  public exportWorkersCsv(workers: any[]): void {
+    const rows = this.getFilteredWorkers(workers);
+    const headers = ['name', 'sessionId', 'userAgent', 'hashRate', 'bestDifficulty', 'rejectedLowDiff', 'rejectedStaleJob', 'rejectedDuplicate', 'startTime', 'lastSeen'];
+    const escapeCell = (val: unknown) => `"${String(val ?? '').replace(/"/g, '""')}"`;
+    const csv = [
+      headers.join(','),
+      ...rows.map((w) => headers.map((key) => escapeCell(w?.[key])).join(',')),
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `hashsolo-workers-${this.address || 'export'}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   public getClientTotalHashRate(clientInfo: any): number {

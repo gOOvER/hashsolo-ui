@@ -50,6 +50,35 @@ export class AppService {
     public getInfo() {
         return this.httpClient.get(`${this.appConfig.apiUrl}/api/info`) as Observable<any>;
     }
+
+    public connectLiveStream(): Observable<{ type: string; data: any }> {
+        return new Observable((subscriber) => {
+            if (typeof EventSource === 'undefined') {
+                subscriber.complete();
+                return;
+            }
+            const source = new EventSource(`${this.appConfig.apiUrl}/api/stream`);
+            const onEvent = (type: string) => (event: MessageEvent) => {
+                try {
+                    subscriber.next({ type, data: JSON.parse(event.data) });
+                } catch {
+                    // ignore malformed SSE payloads
+                }
+            };
+            const onBestDiff = onEvent('best_diff');
+            const onBlock = onEvent('block');
+            source.addEventListener('best_diff', onBestDiff as EventListener);
+            source.addEventListener('block', onBlock as EventListener);
+            source.onerror = () => {
+                // Keep polling fallback active; EventSource reconnects automatically
+            };
+            return () => {
+                source.removeEventListener('best_diff', onBestDiff as EventListener);
+                source.removeEventListener('block', onBlock as EventListener);
+                source.close();
+            };
+        });
+    }
     public getConnectedMiners(): Observable<ConnectedMiner[]> {
         return (this.httpClient.get(`${this.appConfig.apiUrl}/api/info/miners`) as Observable<ConnectedMiner[]>).pipe(
             timeout(4000),
