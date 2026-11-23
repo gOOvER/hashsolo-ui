@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-23
+
 ### Added
 - Added `CONTRIBUTORS.md` (linked from `README.md`) crediting `@benjamin-wilson` and historical upstream contributors.
 - Added worker search filter, sorting (`Hashrate`, `Best Diff`, `Name`), and CSV export to the address dashboard, plus live SSE (`/api/stream`) refresh triggers in `AppService`.
