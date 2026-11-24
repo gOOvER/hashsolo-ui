@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Added a `Log` / `Linear` Y-axis scale toggle (defaulting to `logarithmic`) to both the landing-page and address-dashboard hashrate charts so `kH/s`–`MH/s` miners remain clearly visible alongside `GH/s`–`TH/s` spikes.
+
 ### Fixed
 - Updated fallback footer version in `SplashComponent` to `1.3.0`.
 

@@ -35,6 +35,7 @@ export class SplashComponent {
   public nextBlockReward$: Observable<NextBlockReward | null>;
 
   public chartOptions: any;
+  public chartScale: 'linear' | 'logarithmic' = 'logarithmic';
   public copiedLabel: string | null = null;
   public get donationBtcAddress(): string {
     return this.appConfig.donationBtcAddress;
@@ -245,8 +246,10 @@ export class SplashComponent {
           }
         },
         yPplns: {
+          type: this.chartScale,
           position: 'left',
           display: this.pplnsEnabled,
+          min: 1,
           title: {
             display: this.pplnsEnabled,
             text: 'PPLNS',
@@ -254,18 +257,21 @@ export class SplashComponent {
           },
           ticks: {
             color: primaryColor,
+            maxTicksLimit: 8,
             callback: (value: number) => {
-              return HashSuffixPipe.transform(value);
+              return value <= 0 ? '0 H/s' : HashSuffixPipe.transform(value);
             }
           },
           grid: {
             color: surfaceBorder,
             drawBorder: false
           },
-          beginAtZero: true
+          beginAtZero: false
         },
         ySolo: {
+          type: this.chartScale,
           position: this.pplnsEnabled ? 'right' : 'left',
+          min: 1,
           title: {
             display: true,
             text: 'Solo',
@@ -273,8 +279,9 @@ export class SplashComponent {
           },
           ticks: {
             color: soloColor,
+            maxTicksLimit: 8,
             callback: (value: number) => {
-              return HashSuffixPipe.transform(value);
+              return value <= 0 ? '0 H/s' : HashSuffixPipe.transform(value);
             }
           },
           grid: {
@@ -282,11 +289,37 @@ export class SplashComponent {
             drawBorder: false,
             drawOnChartArea: !this.pplnsEnabled
           },
-          beginAtZero: true
+          beginAtZero: false
         }
       }
     };
 
+  }
+
+  public setChartScale(scale: 'linear' | 'logarithmic'): void {
+    if (this.chartScale === scale) {
+      return;
+    }
+    this.chartScale = scale;
+    const isLog = scale === 'logarithmic';
+    this.chartOptions = {
+      ...this.chartOptions,
+      scales: {
+        ...this.chartOptions.scales,
+        yPplns: {
+          ...this.chartOptions.scales.yPplns,
+          type: scale,
+          min: isLog ? 1 : undefined,
+          beginAtZero: !isLog
+        },
+        ySolo: {
+          ...this.chartOptions.scales.ySolo,
+          type: scale,
+          min: isLog ? 1 : undefined,
+          beginAtZero: !isLog
+        }
+      }
+    };
   }
 
   private toChartPoint(point: any) {

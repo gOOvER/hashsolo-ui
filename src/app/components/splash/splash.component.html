@@ -336,6 +336,13 @@
                             <span>Solo 1h</span>
                             <strong>{{modeAccounting.solo.hashRateLastHour | hashSuffix}}</strong>
                         </div>
+                        <div>
+                            <span>Scale</span>
+                            <div class="lang-toggle" role="group" aria-label="Chart scale">
+                                <button type="button" [class.active]="chartScale === 'logarithmic'" (click)="setChartScale('logarithmic')">Log</button>
+                                <button type="button" [class.active]="chartScale === 'linear'" (click)="setChartScale('linear')">Linear</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

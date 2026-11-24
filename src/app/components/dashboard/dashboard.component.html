@@ -170,10 +170,14 @@
 
         <div class="col-12">
             <div class="card chart section-card">
-                <div class="section-header">
+                <div class="section-header worker-toolbar-header">
                     <div>
                         <h4>{{i18n.t('addressHashrate')}}</h4>
                         <span>{{i18n.t('addressHashrateDesc')}}</span>
+                    </div>
+                    <div class="worker-toolbar">
+                        <button pButton type="button" class="p-button-sm" [class.p-button-outlined]="chartScale !== 'logarithmic'" (click)="setChartScale('logarithmic')">Log</button>
+                        <button pButton type="button" class="p-button-sm" [class.p-button-outlined]="chartScale !== 'linear'" (click)="setChartScale('linear')">Linear</button>
                     </div>
                 </div>
                 <ng-container *ngIf="chartData$ | async as chartData; else loadingChart">

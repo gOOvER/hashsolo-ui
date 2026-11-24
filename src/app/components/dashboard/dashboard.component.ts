@@ -28,6 +28,7 @@ export class DashboardComponent implements AfterViewInit {
   public chartData$: Observable<any>;
 
   public chartOptions: any;
+  public chartScale: 'linear' | 'logarithmic' = 'logarithmic';
 
   public networkInfo$: Observable<any>;
   private networkInfo: any;
@@ -156,8 +157,10 @@ export class DashboardComponent implements AfterViewInit {
           }
         },
         yPplns: {
+          type: this.chartScale,
           display: this.pplnsEnabled,
           position: 'left',
+          min: 1,
           title: {
             display: true,
             text: 'PPLNS',
@@ -165,18 +168,21 @@ export class DashboardComponent implements AfterViewInit {
           },
           ticks: {
             color: primaryColor,
+            maxTicksLimit: 8,
             callback: (value: number) => {
-              return HashSuffixPipe.transform(value);
+              return value <= 0 ? '0 H/s' : HashSuffixPipe.transform(value);
             }
           },
           grid: {
             color: surfaceBorder,
             drawBorder: false
           },
-          beginAtZero: true
+          beginAtZero: false
         },
         ySolo: {
+          type: this.chartScale,
           position: 'right',
+          min: 1,
           title: {
             display: true,
             text: 'Solo',
@@ -184,8 +190,9 @@ export class DashboardComponent implements AfterViewInit {
           },
           ticks: {
             color: soloColor,
+            maxTicksLimit: 8,
             callback: (value: number) => {
-              return HashSuffixPipe.transform(value);
+              return value <= 0 ? '0 H/s' : HashSuffixPipe.transform(value);
             }
           },
           grid: {
@@ -193,11 +200,37 @@ export class DashboardComponent implements AfterViewInit {
             drawBorder: false,
             drawOnChartArea: false
           },
-          beginAtZero: true
+          beginAtZero: false
         }
       }
     };
 
+  }
+
+  public setChartScale(scale: 'linear' | 'logarithmic'): void {
+    if (this.chartScale === scale) {
+      return;
+    }
+    this.chartScale = scale;
+    const isLog = scale === 'logarithmic';
+    this.chartOptions = {
+      ...this.chartOptions,
+      scales: {
+        ...this.chartOptions.scales,
+        yPplns: {
+          ...this.chartOptions.scales.yPplns,
+          type: scale,
+          min: isLog ? 1 : undefined,
+          beginAtZero: !isLog
+        },
+        ySolo: {
+          ...this.chartOptions.scales.ySolo,
+          type: scale,
+          min: isLog ? 1 : undefined,
+          beginAtZero: !isLog
+        }
+      }
+    };
   }
 
 
